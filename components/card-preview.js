@@ -1,7 +1,6 @@
-import { CardInfo } from "./card-info"
 import { IconArrowRight, IconMapPin, IconTelephoneFill } from "./icons"
 
-export function CardPreview(params) {
+export function CardPreview({ name, phone, address }) {
   return (
     <>
       <div>
@@ -32,9 +31,6 @@ export function CardPreview(params) {
             </div>
           </div>
         </div>
-      </div>
-      <div className="w-[88%] mx-auto lg:hidden">
-        <CardInfo />
       </div>
     </>
   )

@@ -1,17 +1,21 @@
 "use client"
 import Image from "next/image"
-import { IconDownOpenMini, IconSearch } from "./icons"
+import { IconCreateOutline, IconDownOpenMini, IconSearch } from "./icons"
 import Link from "next/link"
 import { useState } from "react"
 import { useOpen } from "@/hooks/useOpen"
+import { CreateInfo } from "./create-info"
 
 export function Header() {
   const [isConfigOpen] = useState(false) // Estado para controlar la apertura/cierre de la configuración
   const [isLimitOpen] = useState(false) // Estado para controlar la apertura/cierre del mostrar un numero limitado de items
+  const [isCreateOpen] = useState(false) // Estado para controlar la apertura/cierre del mostrar un numero limitado de items
   const { toggleView: toggleConfigView, getViewStyle: getConfigViewStyle } =
     useOpen(isConfigOpen) // Usa el hook useOpen para controlar la visibilidad de la configuración
   const { toggleView: toggleLimitView, getViewStyle: getLimitViewStyle } =
     useOpen(isLimitOpen) // Usa el hook useOpen para controlar la visibilidad del límite // Usa el hook useOpen para controlar la visibilidad de la configuración
+  const { toggleView: toggleCreateView, getCreateStyle: getCreateViewStyle } =
+    useOpen(isCreateOpen) // Usa el hook useOpen para controlar la visibilidad del límite // Usa el hook useOpen para controlar la visibilidad de la configuración
 
   const handleConfigToggle = () => {
     toggleConfigView()
@@ -19,6 +23,10 @@ export function Header() {
 
   const handleLimitToggle = () => {
     toggleLimitView()
+  }
+
+  const handleCreateToggle = () => {
+    toggleCreateView()
   }
 
   return (
@@ -43,7 +51,7 @@ export function Header() {
           </button>
         </div>
         <div
-          className={`${getConfigViewStyle()} transition ease-out duration-150 absolute z-[1000] shadow-xl shadow-black/5 bg-white top-[76px] right-5 w-56 grid rounded-lg border-[#EDEDED] border justify-center`}
+          className={`${getConfigViewStyle()} transition ease-out duration-150 absolute z-[500] shadow-xl shadow-black/5 bg-white top-[76px] right-5 w-56 grid rounded-lg border-[#EDEDED] border justify-center`}
         >
           <Link
             className="text-[#1FBBC2] p-3 border-b border-[#EDEDED]"
@@ -58,27 +66,47 @@ export function Header() {
       </div>
       <div className="grid items-center lg:w-[64%] w-10/12 h-40">
         <div className="flex flex-col gap-2 lg:items-center lg:justify-between lg:flex-row">
-          <form className="lg:w-3/6 ">
-            <label for="search" class="text-white sr-only">
-              Search
-            </label>
-            <div class="relative">
-              <input
-                type="search"
-                id="search"
-                autocomplete="off"
-                class="w-full py-3 px-5 bg-white/20 rounded-full outline-none white-input"
-                placeholder="Search"
-                required
-              />
+          <div className="flex items-center gap-3 lg:w-3/5 ">
+            <form className="w-full">
+              <label for="search" class="text-white sr-only">
+                Search
+              </label>
+              <div class="relative">
+                <input
+                  type="search"
+                  id="search"
+                  autocomplete="off"
+                  class="w-full py-3 px-5 bg-white/20 rounded-full outline-none white-input"
+                  placeholder="Search"
+                  required
+                />
+                <button
+                  type="submit"
+                  class="text-[#1FBBC2] absolute right-1 bottom-[3px] p-2 transition ease-out duration-150 bg-white hover:bg-[#eeeeee] rounded-full"
+                >
+                  <IconSearch className="w-5 h-5" />
+                </button>
+              </div>
+            </form>
+            <div>
               <button
-                type="submit"
-                class="text-[#1FBBC2] absolute right-1 bottom-[3px] p-2 transition ease-out duration-150 bg-white hover:bg-[#eeeeee] rounded-full"
+                onClick={handleCreateToggle}
+                className="flex p-2 items-center justify-center h-10 w-10 bg-white rounded-full hover:bg-[#eeeeee] transition ease-out duration-150"
               >
-                <IconSearch className="w-5 h-5" />
+                <IconCreateOutline
+                  className="w-full h-full"
+                  stroke="#1FBBC2"
+                  fill="#1FBBC2"
+                />
               </button>
+              <CreateInfo
+                getCreateViewStyle={getCreateViewStyle}
+                handleToggle={handleCreateToggle}
+                title="Crear un cliente"
+              />
             </div>
-          </form>
+          </div>
+
           <button
             className="flex items-center gap-1"
             onClick={handleLimitToggle}
@@ -87,7 +115,7 @@ export function Header() {
             <IconDownOpenMini className="w-7 h-7" />
           </button>
           <div
-            className={`${getLimitViewStyle()} transition ease-out duration-150 absolute z-[1000] shadow-xl shadow-black/5 bg-white top-[180px] right-[33%] w-56 grid rounded-lg border-[#EDEDED] border justify-center`}
+            className={`${getLimitViewStyle()} transition ease-out duration-150 absolute z-[500] shadow-xl shadow-black/5 bg-white top-[180px] right-[33%] w-56 grid rounded-lg border-[#EDEDED] border justify-center`}
           >
             <Link
               className="text-[#1FBBC2] p-3 border-b border-[#EDEDED]"
