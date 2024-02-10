@@ -9,7 +9,7 @@ export default function Home() {
       <SideBar />
       <div className="flex flex-col w-full">
         <Header />
-        <main className="z-50 flex">
+        <main className="z-20 flex">
           <div className="lg:w-[68%] w-full flex flex-col gap-5 -mt-9">
             <CardPreview />
           </div>

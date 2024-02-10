@@ -8,7 +8,6 @@ export function SideBar() {
           <Menu fill="#1FBBC2" />
         </button>
       </div>
-      <div></div>
     </aside>
   )
 }

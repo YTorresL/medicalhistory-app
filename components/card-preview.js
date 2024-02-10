@@ -10,7 +10,7 @@ export function CardPreview(params) {
             <img src="./profile.png" className="w-14 h-14" />
             <div className="flex flex-col gap-1">
               <strong className="text-neutral-800">Mariano Garcia</strong>
-              <div className="flex items-center gap-3 text-neutral-500">
+              <div className="flex items-center gap-3 text-neutral-400">
                 <IconTelephoneFill className="w-4 h-4" fill="#1FBBC2" />
                 0412 4563355
               </div>
@@ -19,7 +19,7 @@ export function CardPreview(params) {
           <div className="border-l border-[#EDEDED] py-5 flex justify-between w-[62%] items-center  pl-10 pr-5">
             <div className="flex flex-col gap-1">
               <strong className="text-neutral-800">Dirección</strong>
-              <div className="flex items-center gap-3 text-neutral-500">
+              <div className="flex items-center gap-3 text-neutral-400">
                 <IconMapPin className="w-4 h-4" fill="#1FBBC2" />
                 Las Valerianas 234# AC
               </div>
