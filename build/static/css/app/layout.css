@@ -557,6 +557,12 @@ video {
 .col-span-2 {
   grid-column: span 2 / span 2;
 }
+.col-span-5 {
+  grid-column: span 5 / span 5;
+}
+.col-span-4 {
+  grid-column: span 4 / span 4;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -596,6 +602,18 @@ video {
 }
 .mt-3 {
   margin-top: 0.75rem;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+.mt-10 {
+  margin-top: 2.5rem;
+}
+.mt-2 {
+  margin-top: 0.5rem;
+}
+.-mt-6 {
+  margin-top: -1.5rem;
 }
 .line-clamp-1 {
   overflow: hidden;
@@ -666,6 +684,18 @@ video {
 .h-full {
   height: 100%;
 }
+.h-1 {
+  height: 0.25rem;
+}
+.h-\[1px\] {
+  height: 1px;
+}
+.h-\[85\%\] {
+  height: 85%;
+}
+.h-\[90\%\] {
+  height: 90%;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -725,6 +755,12 @@ video {
 }
 .w-full {
   width: 100%;
+}
+.flex-1 {
+  flex: 1 1 0%;
+}
+.flex-shrink-0 {
+  flex-shrink: 0;
 }
 @keyframes fade {
 
@@ -866,6 +902,10 @@ video {
 }
 .bg-white\/20 {
   background-color: rgb(255 255 255 / 0.2);
+}
+.bg-\[\#EDEDED\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(237 237 237 / var(--tw-bg-opacity));
 }
 .fill-\[\#1FBBC2\] {
   fill: #1FBBC2;
@@ -1073,8 +1113,28 @@ button {
     grid-column: span 5 / span 5;
   }
 
+  .md\:col-span-6 {
+    grid-column: span 6 / span 6;
+  }
+
+  .md\:col-span-1 {
+    grid-column: span 1 / span 1;
+  }
+
   .md\:grid-cols-5 {
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

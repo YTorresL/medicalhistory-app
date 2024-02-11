@@ -10,7 +10,7 @@ export function CreateInfo({
     <div
       className={`${getCreateViewStyle()} bg-black/40 flex items-center justify-center z-[2000] inset-0`}
     >
-      <div className="w-5/6 p-3 bg-white rounded-lg h-5/6">
+      <div className="w-5/6 p-3 bg-white rounded-lg h-[90%]">
         <div className="flex justify-between border-b border-[#EDEDED] pb-3">
           <div className="flex items-center justify-center w-full">
             <span className="text-[#1FBBC2]">{title}</span>

@@ -8,12 +8,16 @@ export function CardPreview({ InfoChange, information, id }) {
           <div className="flex items-center w-[38%] gap-5 py-2 pl-5">
             <img src="./profile.png" className="w-14 h-14" />
             <div className="flex flex-col gap-1">
-              <strong className="text-neutral-800">{information.nombre}</strong>
+              <strong className="text-neutral-800">
+                {information.nombre || "---"}
+              </strong>
               <div className="flex items-center gap-3 text-neutral-400">
                 <div>
                   <IconTelephoneFill className="w-4 h-4" fill="#1FBBC2" />
                 </div>
-                <span className="line-clamp-1">{information.telef}</span>
+                <span className="line-clamp-1">
+                  {information.telef || "---"}
+                </span>
               </div>
             </div>
           </div>
@@ -24,7 +28,9 @@ export function CardPreview({ InfoChange, information, id }) {
                 <div>
                   <IconMapPin className="w-4 h-4" fill="#1FBBC2" />
                 </div>
-                <span className="line-clamp-1">{information.direcc}</span>
+                <span className="line-clamp-1">
+                  {information.direcc || "---"}
+                </span>
               </div>
             </div>
 

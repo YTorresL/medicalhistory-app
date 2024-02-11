@@ -4,6 +4,7 @@ import { IconMathPlus } from "./icons"
 import { useState } from "react"
 import { useOpen } from "@/hooks/useOpen"
 import { CreateInfo } from "./create-info"
+import { FormHistorial } from "./form-historial"
 
 export function CardInfo({ information }) {
   const [isCreateOpen] = useState(false) // Estado para controlar la apertura/cierre del mostrar un numero limitado de items
@@ -29,27 +30,39 @@ export function CardInfo({ information }) {
           <div className="grid items-center grid-cols-2 gap-5">
             <div className="flex flex-col gap-1">
               <strong className="text-neutral-800">Nombre</strong>
-              <span className="text-neutral-400">{information.nombre}</span>
+              <span className="text-neutral-400">
+                {information.nombre || "---"}
+              </span>
             </div>
             <div className="flex flex-col gap-1">
               <strong className="text-neutral-800">RIF</strong>
-              <span className="text-neutral-400">{information.rif}</span>
+              <span className="text-neutral-400">
+                {information.rif || "---"}
+              </span>
             </div>
             <div className="flex flex-col gap-1">
               <strong className="text-neutral-800">Especialista</strong>
-              <span className="text-neutral-400">{information.zona}</span>
+              <span className="text-neutral-400">
+                {information.zona || "---"}
+              </span>
             </div>
             <div className="flex flex-col gap-1">
               <strong className="text-neutral-800">Telefono</strong>
-              <span className="text-neutral-400">{information.telef}</span>
+              <span className="text-neutral-400">
+                {information.telef || "---"}
+              </span>
             </div>
             <div className="flex flex-col col-span-2 gap-1">
               <strong className="text-neutral-800">Correo</strong>
-              <span className="text-neutral-400">{information.email}</span>
+              <span className="text-neutral-400">
+                {information.email || "---"}
+              </span>
             </div>
             <div className="flex flex-col col-span-2 gap-1">
               <strong className="text-neutral-800">Dirección</strong>
-              <span className="text-neutral-400">{information.direcc}</span>
+              <span className="text-neutral-400">
+                {information.direcc || "---"}
+              </span>
             </div>
           </div>
           <div className="flex flex-col">
@@ -62,26 +75,32 @@ export function CardInfo({ information }) {
                       <div className="grid grid-cols-2 gap-3 gap-x-5 border-b pb-3 mb-3 border-dashed border-[#EDEDED]">
                         <div className="flex flex-col gap-1">
                           <strong className="text-neutral-800">Fecha</strong>
-                          <span className="text-neutral-400">{item.fecha}</span>
+                          <span className="text-neutral-400">
+                            {item.fecha || "---"}
+                          </span>
                         </div>
                         <div className="flex flex-col gap-1">
                           <strong className="text-neutral-800">Edad</strong>
-                          <span className="text-neutral-400">{item.edad}</span>
+                          <span className="text-neutral-400">
+                            {item.edad || "---"}
+                          </span>
                         </div>
                         <div className="flex flex-col gap-1">
                           <strong className="text-neutral-800">Sexo</strong>
-                          <span className="text-neutral-400">{item.sexo}</span>
+                          <span className="text-neutral-400">
+                            {item.sexo || "---"}
+                          </span>
                         </div>
                       </div>
                       <div className="grid grid-cols-2 gap-3 gap-x-5 border-b pb-3 mb-3 border-dashed border-[#EDEDED]">
                         <div className="flex flex-col gap-3">
-                          <strong className="text-neutral-800">
+                          <strong className="mb-2 text-neutral-800">
                             Ojo Izquierdo
                           </strong>
                           <div className="flex flex-col gap-1">
                             <strong className="text-neutral-800">Esfera</strong>
                             <span className="text-neutral-400">
-                              {item.OI_Esfera}
+                              {item.OI_Esfera || "---"}
                             </span>
                           </div>
                           <div className="flex flex-col gap-1">
@@ -89,13 +108,13 @@ export function CardInfo({ information }) {
                               Cilindro
                             </strong>
                             <span className="text-neutral-400">
-                              {item.OI_Cilindro}
+                              {item.OI_Cilindro || "---"}
                             </span>
                           </div>
                           <div className="flex flex-col gap-1">
                             <strong className="text-neutral-800">Eje</strong>
                             <span className="text-neutral-400">
-                              {item.OI_Eje}
+                              {item.OI_Eje || "---"}
                             </span>
                           </div>
                           <div className="flex flex-col gap-1">
@@ -103,7 +122,7 @@ export function CardInfo({ information }) {
                               Distancia
                             </strong>
                             <span className="text-neutral-400">
-                              {item.OI_Distancia}
+                              {item.OI_Distancia || "---"}
                             </span>
                           </div>
                           <div className="flex flex-col gap-1">
@@ -111,18 +130,18 @@ export function CardInfo({ information }) {
                               Adición
                             </strong>
                             <span className="text-neutral-400">
-                              {item.OI_Adicion}
+                              {item.OI_Adicion || "---"}
                             </span>
                           </div>
                         </div>
                         <div className="flex flex-col gap-3">
-                          <strong className="text-neutral-800">
+                          <strong className="mb-2 text-neutral-800">
                             Ojo Derecho
                           </strong>
                           <div className="flex flex-col gap-1">
                             <strong className="text-neutral-800">Esfera</strong>
                             <span className="text-neutral-400">
-                              {item.OD_Esfera}
+                              {item.OD_Esfera || "---"}
                             </span>
                           </div>
                           <div className="flex flex-col gap-1">
@@ -130,13 +149,13 @@ export function CardInfo({ information }) {
                               Cilindro
                             </strong>
                             <span className="text-neutral-400">
-                              {item.OD_Cilindro}
+                              {item.OD_Cilindro || "---"}
                             </span>
                           </div>
                           <div className="flex flex-col gap-1">
                             <strong className="text-neutral-800">Eje</strong>
                             <span className="text-neutral-400">
-                              {item.OD_Eje}
+                              {item.OD_Eje || "---"}
                             </span>
                           </div>
                           <div className="flex flex-col gap-1">
@@ -144,7 +163,7 @@ export function CardInfo({ information }) {
                               Distancia
                             </strong>
                             <span className="text-neutral-400">
-                              {item.OD_Distancia}
+                              {item.OD_Distancia || "---"}
                             </span>
                           </div>
                           <div className="flex flex-col gap-1">
@@ -152,7 +171,7 @@ export function CardInfo({ information }) {
                               Adición
                             </strong>
                             <span className="text-neutral-400">
-                              {item.OD_Adicion}
+                              {item.OD_Adicion || "---"}
                             </span>
                           </div>
                         </div>
@@ -160,25 +179,33 @@ export function CardInfo({ information }) {
                       <div className="grid grid-cols-2 gap-3 gap-x-5 border-b pb-3 mb-3 border-dashed border-[#EDEDED]">
                         <div className="flex flex-col gap-1">
                           <strong className="text-neutral-800">DNP</strong>
-                          <span className="text-neutral-400">{item.DNP}</span>
+                          <span className="text-neutral-400">
+                            {item.DNP || "---"}
+                          </span>
                         </div>
                         <div className="flex flex-col gap-1">
                           <strong className="text-neutral-800">Altura</strong>
                           <span className="text-neutral-400">
-                            {item.Altura}
+                            {item.Altura || "---"}
                           </span>
                         </div>
                         <div className="flex flex-col gap-1">
                           <strong className="text-neutral-800">DP</strong>
-                          <span className="text-neutral-400">{item.DP}</span>
+                          <span className="text-neutral-400">
+                            {item.DP || "---"}
+                          </span>
                         </div>
                         <div className="flex flex-col gap-1">
                           <strong className="text-neutral-800">TM</strong>
-                          <span className="text-neutral-400">{item.Tm}</span>
+                          <span className="text-neutral-400">
+                            {item.Tm || "---"}
+                          </span>
                         </div>
                         <div className="flex flex-col gap-1">
                           <strong className="text-neutral-800">PT</strong>
-                          <span className="text-neutral-400">{item.Pt}</span>
+                          <span className="text-neutral-400">
+                            {item.Pt || "---"}
+                          </span>
                         </div>
                       </div>
                       <div className="grid grid-cols-2 gap-3 gap-x-5">
@@ -187,18 +214,20 @@ export function CardInfo({ information }) {
                             Cristales
                           </strong>
                           <span className="text-neutral-400">
-                            {item.Cristales}
+                            {item.Cristales || "---"}
                           </span>
                         </div>
                         <div className="flex flex-col gap-1">
                           <strong className="text-neutral-800">Montura</strong>
                           <span className="text-neutral-400">
-                            {item.Montura}
+                            {item.Montura || "---"}
                           </span>
                         </div>
                         <div className="flex flex-col gap-1">
                           <strong className="text-neutral-800">Color</strong>
-                          <span className="text-neutral-400">{item.Color}</span>
+                          <span className="text-neutral-400">
+                            {item.Color || "---"}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -223,7 +252,9 @@ export function CardInfo({ information }) {
         getCreateViewStyle={getCreateStyle}
         handleToggle={handleCreateToggle}
         title="Agregar al historial"
-      ></CreateInfo>
+      >
+        <FormHistorial />
+      </CreateInfo>
     </>
   )
 }

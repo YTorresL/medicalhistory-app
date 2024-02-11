@@ -1,4 +1,3 @@
-import { Head } from "next/document"
 import "./globals.css"
 import "normalize.css/normalize.css"
 
@@ -10,12 +9,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        <meta
-          httpEquiv="Content-Security-Policy"
-          content="upgrade-insecure-requests"
-        />
-      </Head>
       <body className="bg-[#F9FAFE]">{children}</body>
     </html>
   )

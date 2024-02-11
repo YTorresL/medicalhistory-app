@@ -1,5 +1,5 @@
 export async function getHistorial() {
-  const res = await fetch(`http://206.62.175.124:42380/sh-oft/getCLI`)
+  const res = await fetch(`https://testsh.alphasoft.com.ve/sh-oft/getCLI`)
 
   if (!res.ok) {
     throw new Error("Something went wrong")
