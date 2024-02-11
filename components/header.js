@@ -75,7 +75,7 @@ export function Header() {
                 />
                 <button
                   type="submit"
-                  className="text-[#1FBBC2] absolute right-1 bottom-[3px] p-2 transition ease-out duration-150 bg-white hover:bg-[#eeeeee] rounded-full"
+                  className="text-[#1FBBC2] absolute right-1 top-1/2 -translate-y-1/2 p-2 transition ease-out duration-150 bg-white hover:bg-[#eeeeee] rounded-full"
                 >
                   <IconSearch className="w-5 h-5" />
                 </button>
