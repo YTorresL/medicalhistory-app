@@ -8,7 +8,7 @@ export function CardPreview({ InfoChange, information, id }) {
           <div className="flex items-center w-[38%] gap-5 py-2 pl-5">
             <img src="./profile.png" className="w-14 h-14" />
             <div className="flex flex-col gap-1">
-              <strong className="text-neutral-800">
+              <strong className="leading-5 text-neutral-800">
                 {information.nombre || "---"}
               </strong>
               <div className="flex items-center gap-3 text-neutral-400">

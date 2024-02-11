@@ -30,7 +30,7 @@ export function CardInfo({ information }) {
           <div className="grid items-center grid-cols-2 gap-5">
             <div className="flex flex-col gap-1">
               <strong className="text-neutral-800">Nombre</strong>
-              <span className="text-neutral-400">
+              <span className="leading-5 text-neutral-400">
                 {information.nombre || "---"}
               </span>
             </div>
@@ -54,13 +54,13 @@ export function CardInfo({ information }) {
             </div>
             <div className="flex flex-col col-span-2 gap-1">
               <strong className="text-neutral-800">Correo</strong>
-              <span className="text-neutral-400">
+              <span className="leading-5 text-neutral-400">
                 {information.email || "---"}
               </span>
             </div>
             <div className="flex flex-col col-span-2 gap-1">
               <strong className="text-neutral-800">Dirección</strong>
-              <span className="text-neutral-400">
+              <span className="leading-5 text-neutral-400">
                 {information.direcc || "---"}
               </span>
             </div>

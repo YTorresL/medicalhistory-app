@@ -997,6 +997,12 @@ video {
 .font-bold {
   font-weight: 700;
 }
+.leading-6 {
+  line-height: 1.5rem;
+}
+.leading-5 {
+  line-height: 1.25rem;
+}
 .text-\[\#1FBBC2\] {
   --tw-text-opacity: 1;
   color: rgb(31 187 194 / var(--tw-text-opacity));
