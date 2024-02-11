@@ -19,7 +19,7 @@ export function useOpen(initialView) {
   }
 
   const getCreateStyle = () => {
-    return open === STATE_VIEW.OPEN ? "absolute" : "hidden"
+    return open === STATE_VIEW.OPEN ? "fixed" : "hidden"
   }
 
   return {

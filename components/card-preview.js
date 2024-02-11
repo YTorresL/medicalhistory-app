@@ -1,6 +1,6 @@
 import { IconArrowRight, IconMapPin, IconTelephoneFill } from "./icons"
 
-export function CardPreview({ name, phone, address }) {
+export function CardPreview({ InfoChange, information, id }) {
   return (
     <>
       <div>
@@ -8,10 +8,12 @@ export function CardPreview({ name, phone, address }) {
           <div className="flex items-center w-[38%] gap-5 py-2 pl-5">
             <img src="./profile.png" className="w-14 h-14" />
             <div className="flex flex-col gap-1">
-              <strong className="text-neutral-800">Mariano Garcia</strong>
+              <strong className="text-neutral-800">{information.nombre}</strong>
               <div className="flex items-center gap-3 text-neutral-400">
-                <IconTelephoneFill className="w-4 h-4" fill="#1FBBC2" />
-                0412 4563355
+                <div>
+                  <IconTelephoneFill className="w-4 h-4" fill="#1FBBC2" />
+                </div>
+                <span className="line-clamp-1">{information.telef}</span>
               </div>
             </div>
           </div>
@@ -19,13 +21,18 @@ export function CardPreview({ name, phone, address }) {
             <div className="flex flex-col gap-1">
               <strong className="text-neutral-800">Dirección</strong>
               <div className="flex items-center gap-3 text-neutral-400">
-                <IconMapPin className="w-4 h-4" fill="#1FBBC2" />
-                Las Valerianas 234# AC
+                <div>
+                  <IconMapPin className="w-4 h-4" fill="#1FBBC2" />
+                </div>
+                <span className="line-clamp-1">{information.direcc}</span>
               </div>
             </div>
 
             <div>
-              <button className="flex items-center rounded-full p-2 transition ease-out duration-150 hover:bg-[#eeeeee] bg-[#F9FAFE]">
+              <button
+                className="flex items-center rounded-full p-2 transition ease-out duration-150 hover:bg-[#eeeeee] bg-[#F9FAFE]"
+                onClick={() => InfoChange(id)}
+              >
                 <IconArrowRight className="w-6 h-6" fill="#1FBBC2" />
               </button>
             </div>

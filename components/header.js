@@ -5,35 +5,28 @@ import Link from "next/link"
 import { useState } from "react"
 import { useOpen } from "@/hooks/useOpen"
 import { CreateInfo } from "./create-info"
+import { FormClient } from "./form-client"
 
 export function Header() {
-  const [isConfigOpen] = useState(false) // Estado para controlar la apertura/cierre de la configuración
-  const [isLimitOpen] = useState(false) // Estado para controlar la apertura/cierre del mostrar un numero limitado de items
-  const [isCreateOpen] = useState(false) // Estado para controlar la apertura/cierre del mostrar un numero limitado de items
+  const [isConfigOpen] = useState(false)
+  const [isLimitOpen] = useState(false)
+  const [isCreateOpen] = useState(false)
   const { toggleView: toggleConfigView, getViewStyle: getConfigViewStyle } =
-    useOpen(isConfigOpen) // Usa el hook useOpen para controlar la visibilidad de la configuración
+    useOpen(isConfigOpen)
   const { toggleView: toggleLimitView, getViewStyle: getLimitViewStyle } =
-    useOpen(isLimitOpen) // Usa el hook useOpen para controlar la visibilidad del límite // Usa el hook useOpen para controlar la visibilidad de la configuración
+    useOpen(isLimitOpen)
   const { toggleView: toggleCreateView, getCreateStyle: getCreateViewStyle } =
-    useOpen(isCreateOpen) // Usa el hook useOpen para controlar la visibilidad del límite // Usa el hook useOpen para controlar la visibilidad de la configuración
+    useOpen(isCreateOpen)
 
-  const handleConfigToggle = () => {
-    toggleConfigView()
-  }
-
-  const handleLimitToggle = () => {
-    toggleLimitView()
-  }
-
-  const handleCreateToggle = () => {
-    toggleCreateView()
-  }
+  const handleConfigToggle = () => toggleConfigView()
+  const handleLimitToggle = () => toggleLimitView()
+  const handleCreateToggle = () => toggleCreateView()
 
   return (
     <header className="bg-[#1FBBC2] h-60 pl-[6%] lg:pl-[4%] pr-[2%] text-white">
       <div className="flex items-center justify-between w-full h-20">
         <div className="flex gap-3">
-          <h1 className="text-lg font-bold ">Historia medica</h1>
+          <h1 className="text-lg font-bold">Historia médica</h1>
           <div className="w-2 h-2 mt-3 bg-white rounded-full"></div>
         </div>
         <div className="flex items-center gap-3">
@@ -49,40 +42,40 @@ export function Header() {
           <button onClick={handleConfigToggle}>
             <IconDownOpenMini className="w-8 h-8" />
           </button>
-        </div>
-        <div
-          className={`${getConfigViewStyle()} transition ease-out duration-150 absolute z-[500] shadow-xl shadow-black/5 bg-white top-[76px] right-5 w-56 grid rounded-lg border-[#EDEDED] border justify-center`}
-        >
-          <Link
-            className="text-[#1FBBC2] p-3 border-b border-[#EDEDED]"
-            href={""}
+          <div
+            className={`${getConfigViewStyle()} transition ease-out duration-150 absolute z-[500] shadow-xl shadow-black/5 bg-white top-[76px] right-5 w-56 grid rounded-lg border-[#EDEDED] border justify-center`}
           >
-            Configuración
-          </Link>
-          <Link className="text-[#1FBBC2] p-3" href={""}>
-            Cerrar sección
-          </Link>
+            <Link
+              className="text-[#1FBBC2] p-3 border-b border-[#EDEDED]"
+              href={""}
+            >
+              Configuración
+            </Link>
+            <Link className="text-[#1FBBC2] p-3" href={""}>
+              Cerrar sesión
+            </Link>
+          </div>
         </div>
       </div>
       <div className="grid items-center lg:w-[64%] w-10/12 h-40">
         <div className="flex flex-col gap-2 lg:items-center lg:justify-between lg:flex-row">
-          <div className="flex items-center gap-3 lg:w-3/5 ">
+          <div className="flex items-center gap-3 lg:w-3/5">
             <form className="w-full">
-              <label for="search" class="text-white sr-only">
+              <label htmlFor="search" className="text-white sr-only">
                 Search
               </label>
-              <div class="relative">
+              <div className="relative">
                 <input
                   type="search"
                   id="search"
-                  autocomplete="off"
-                  class="w-full py-3 px-5 bg-white/20 rounded-full outline-none white-input"
+                  autoComplete="off"
+                  className="w-full px-5 py-3 rounded-full outline-none bg-white/20 white-input"
                   placeholder="Search"
                   required
                 />
                 <button
                   type="submit"
-                  class="text-[#1FBBC2] absolute right-1 bottom-[3px] p-2 transition ease-out duration-150 bg-white hover:bg-[#eeeeee] rounded-full"
+                  className="text-[#1FBBC2] absolute right-1 bottom-[3px] p-2 transition ease-out duration-150 bg-white hover:bg-[#eeeeee] rounded-full"
                 >
                   <IconSearch className="w-5 h-5" />
                 </button>
@@ -103,10 +96,11 @@ export function Header() {
                 getCreateViewStyle={getCreateViewStyle}
                 handleToggle={handleCreateToggle}
                 title="Crear un cliente"
-              />
+              >
+                <FormClient />
+              </CreateInfo>
             </div>
           </div>
-
           <button
             className="flex items-center gap-1"
             onClick={handleLimitToggle}

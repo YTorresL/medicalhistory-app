@@ -1,9 +1,14 @@
 import { IconClose } from "./icons"
 
-export function CreateInfo({ getCreateViewStyle, handleToggle, title }) {
+export function CreateInfo({
+  getCreateViewStyle,
+  handleToggle,
+  title,
+  children,
+}) {
   return (
     <div
-      className={`${getCreateViewStyle()} bg-black/40 flex items-center justify-center z-[2000] top-0 bottom-0 right-0 left-0`}
+      className={`${getCreateViewStyle()} bg-black/40 flex items-center justify-center z-[2000] inset-0`}
     >
       <div className="w-5/6 p-3 bg-white rounded-lg h-5/6">
         <div className="flex justify-between border-b border-[#EDEDED] pb-3">
@@ -13,7 +18,7 @@ export function CreateInfo({ getCreateViewStyle, handleToggle, title }) {
           <div>
             <button
               onClick={handleToggle}
-              className="flex p-2 items-center justify-center h-10 w-10  rounded-full bg-[#eeeeee] transition ease-out duration-150"
+              className="flex p-2 items-center justify-center h-10 w-10  rounded-full bg-[#eeeeee] hover:bg-white transition ease-out duration-150"
             >
               <IconClose
                 className="w-full text- [#1FBBC2] h-full"
@@ -23,6 +28,7 @@ export function CreateInfo({ getCreateViewStyle, handleToggle, title }) {
             </button>
           </div>
         </div>
+        {children}
       </div>
     </div>
   )
