@@ -1,7 +1,7 @@
 "use client"
 import { CardInfo } from "@/components/card-info"
 import { CardPreview } from "@/components/card-preview"
-import { getHistorial } from "@/components/get-historial"
+import { getHistorial } from "@/components/get-info"
 import { Header } from "@/components/header"
 import { IconLoading } from "@/components/icons"
 import { SideBar } from "@/components/sidebar"

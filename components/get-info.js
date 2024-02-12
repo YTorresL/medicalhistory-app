@@ -21,3 +21,18 @@ export async function getHistorial() {
     },
   )
 }
+export async function getZona() {
+  const res = await fetch(`https://testsh.alphasoft.com.ve/sh-oft/getZona`)
+
+  if (!res.ok) {
+    throw new Error("Something went wrong")
+  }
+  const { data } = await res.json()
+
+  return data.map(({ zona, descrip }) => {
+    return {
+      zona,
+      nombre: descrip,
+    }
+  })
+}

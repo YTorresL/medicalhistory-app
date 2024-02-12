@@ -1,29 +1,72 @@
-export function FormClient(params) {
+"use client"
+import { useEffect, useState } from "react"
+import { getZona } from "./get-info"
+
+const TEXT_FORM = {
+  NOMBRE: { HEAD: "Nombre completo", ATTR: "Nombre" },
+  RIF: { HEAD: "Cedula", ATTR: "Rif" },
+  ZONA: { HEAD: "Especialista", ATTR: "Zona" },
+  DIRECC: { HEAD: "Dirección", ATTR: "Direcc" },
+  TELEF: { HEAD: "Telefono", ATTR: "Telef" },
+  EMAIL: { HEAD: "Correo", ATTR: "Email" },
+}
+
+const initValues = {
+  Nombre: "",
+  Rif: "",
+  Zona: "",
+  Direcc: "",
+  Telef: "",
+  Email: "",
+}
+
+export function FormClient() {
+  const [information, setInformation] = useState([])
+  const [formValues, setFormValues] = useState(initValues)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getZona()
+      setInformation(data)
+    }
+    fetchData()
+  }, [])
+
+  const handleChange = (event) => {
+    const { value, name } = event.target
+    setFormValues((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+
   return (
     <div className="flex items-center h-full text-black">
       <div class="w-3/4 mx-auto">
         <div class="grid gap-4 gap-y-2 text-sm md:grid-cols-5">
           <div class="md:col-span-3">
             <label for="full_name" className="text-[#1FBBC2]">
-              Nombre Completo
+              {TEXT_FORM.NOMBRE.HEAD}
             </label>
             <input
               type="text"
-              name="full_name"
-              id="full_name"
+              name={TEXT_FORM.NOMBRE.ATTR}
+              onChange={handleChange}
               class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
               placeholder="Maria Garcia"
+              value={formValues.Nombre}
               autoComplete="off"
             />
           </div>
           <div class="md:col-span-2">
             <label for="id" className="text-[#1FBBC2]">
-              Cedula
+              {TEXT_FORM.RIF.HEAD}
             </label>
             <input
               type="text"
-              name="city"
-              id="city"
+              onChange={handleChange}
+              name={TEXT_FORM.RIF.ATTR}
+              value={formValues.Rif}
               class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
               placeholder="30.394.495"
               autoComplete="off"
@@ -31,42 +74,45 @@ export function FormClient(params) {
           </div>
           <div class="md:col-span-2">
             <label for="zona" className="text-[#1FBBC2]">
-              Especialista
+              {TEXT_FORM.ZONA.HEAD}
             </label>
             <select
-              name="zona"
-              id="zona"
+              name={TEXT_FORM.ZONA.ATTR}
               autoComplete="off"
+              onChange={handleChange}
+              value={formValues.Zona}
               class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
             >
-              <option value="value1">Value 1</option>
-              <option value="value2" selected>
-                Value 2
-              </option>
-              <option value="value3">Value 3</option>
+              {information.map((item, index) => (
+                <option value={item.nombre} key={index}>
+                  {item.nombre}
+                </option>
+              ))}
             </select>
           </div>
           <div class="md:col-span-3">
             <label for="address" className="text-[#1FBBC2]">
-              Dirección
+              {TEXT_FORM.DIRECC.HEAD}
             </label>
             <input
               type="text"
-              name="address"
+              onChange={handleChange}
+              name={TEXT_FORM.DIRECC.ATTR}
               autoComplete="off"
-              id="address"
+              value={formValues.Direcc}
               class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
               placeholder="Avenida libertador"
             />
           </div>
           <div class="md:col-span-2">
             <label for="phone" className="text-[#1FBBC2]">
-              Telefono
+              {TEXT_FORM.TELEF.HEAD}
             </label>
             <input
               type="text"
-              name="phone"
-              id="phone"
+              name={TEXT_FORM.TELEF.ATTR}
+              value={formValues.Telef}
+              onChange={handleChange}
               autoComplete="off"
               class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
               placeholder="0412 38448453"
@@ -74,13 +120,14 @@ export function FormClient(params) {
           </div>
           <div class="md:col-span-3">
             <label for="email" className="text-[#1FBBC2]">
-              Correo
+              {TEXT_FORM.EMAIL.HEAD}
             </label>
             <input
               type="text"
-              name="email"
+              name={TEXT_FORM.EMAIL.ATTR}
+              onChange={handleChange}
+              value={formValues.Email}
               autoComplete="off"
-              id="email"
               class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
               placeholder="correo@dominio.com"
             />

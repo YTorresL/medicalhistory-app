@@ -545,6 +545,9 @@ video {
 .top-1\/2 {
   top: 50%;
 }
+.bottom-5 {
+  bottom: 1.25rem;
+}
 .z-0 {
   z-index: 0;
 }
@@ -582,6 +585,10 @@ video {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
+.my-3 {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
 .-mr-4 {
   margin-right: -1rem;
 }
@@ -617,6 +624,15 @@ video {
 }
 .-mt-6 {
   margin-top: -1.5rem;
+}
+.-mt-5 {
+  margin-top: -1.25rem;
+}
+.mt-5 {
+  margin-top: 1.25rem;
+}
+.mb-5 {
+  margin-bottom: 1.25rem;
 }
 .line-clamp-1 {
   overflow: hidden;
@@ -994,8 +1010,23 @@ video {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
 .font-bold {
   font-weight: 700;
+}
+.uppercase {
+  text-transform: uppercase;
 }
 .leading-6 {
   line-height: 1.5rem;
