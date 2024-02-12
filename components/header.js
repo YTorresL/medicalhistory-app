@@ -4,8 +4,8 @@ import { IconCreateOutline, IconDownOpenMini, IconSearch } from "./icons"
 import Link from "next/link"
 import { useState } from "react"
 import { useOpen } from "@/hooks/useOpen"
-import { CreateInfo } from "./create-info"
-import { FormClient } from "./form-client"
+import { CreateInfo } from "./info/create-info"
+import { CustomerForm } from "./client-form/customer-form"
 
 export function Header() {
   const [isConfigOpen] = useState(false)
@@ -97,7 +97,7 @@ export function Header() {
                 handleToggle={handleCreateToggle}
                 title="Crear un cliente"
               >
-                <FormClient />
+                <CustomerForm handleCreateToggle={handleCreateToggle} />
               </CreateInfo>
             </div>
           </div>

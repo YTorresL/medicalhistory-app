@@ -1,7 +1,7 @@
 "use client"
-import { CardInfo } from "@/components/card-info"
-import { CardPreview } from "@/components/card-preview"
-import { getHistorial } from "@/components/get-info"
+import { CardInfo } from "@/components/card/card-info"
+import { CardPreview } from "@/components/card/card-preview"
+import { getHistorial } from "@/components/info/get-info"
 import { Header } from "@/components/header"
 import { IconLoading } from "@/components/icons"
 import { SideBar } from "@/components/sidebar"
@@ -44,7 +44,10 @@ export default function Home() {
                 ))}
               </div>
               <div className="w-[32%] hidden lg:block -mt-40">
-                <CardInfo information={information[indexInformation]} />
+                <CardInfo
+                  information={information[indexInformation]}
+                  allInfo={information}
+                />
               </div>
             </>
           ) : (
