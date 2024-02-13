@@ -1,53 +1,75 @@
 "use client"
 import { CardInfo } from "@/components/card/card-info"
 import { CardPreview } from "@/components/card/card-preview"
-import { getHistorial } from "@/components/info/get-info"
-import { Header } from "@/components/header"
+import { getHistory } from "@/components/info/get-info"
+import { Header, SIZE_PAGINATE } from "@/components/header"
 import { IconLoading } from "@/components/icons"
 import { SideBar } from "@/components/sidebar"
 import { useEffect, useState } from "react"
+import { Pagination } from "@/components/pagination"
+
+const paginate = (items, pageNumber, pageSize) => {
+  const startIndex = (pageNumber - 1) * pageSize
+  return items.slice(startIndex, startIndex + pageSize)
+}
 
 export default function Home() {
-  const [information, setInformation] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [customer, setCustomer] = useState([])
   const [loading, setLoading] = useState(false)
-  const [indexInformation, setIndexInformation] = useState(0)
+  const [indexCustomer, setIndexCustomer] = useState(0)
+  const [pageSize, setPageSize] = useState(SIZE_PAGINATE[0])
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getHistorial()
-      setInformation(data)
+      const data = await getHistory()
+      setCustomer(data)
       setLoading(true)
     }
     fetchData()
   }, [])
 
-  const handleInfoChange = (id) => {
-    setIndexInformation(id)
+  const onPageChange = (page) => {
+    setCurrentPage(page)
   }
+  const handleInfoChange = (id) => {
+    setIndexCustomer(id)
+  }
+
+  const handlePageSizeChange = (size) => {
+    setPageSize(size)
+  }
+
+  const paginatedCustomer = paginate(customer, currentPage, pageSize)
 
   return (
     <div className="flex">
       <SideBar />
       <div className="flex flex-col w-full">
-        <Header />
+        <Header handlePageSizeChange={handlePageSizeChange} />
         <main className="z-20 flex">
           {loading ? (
             <>
               <div className="lg:w-[68%] w-full flex flex-col gap-5 -mt-9 mb-14 animate-fade animate-duration-300">
-                {information.map((item, index) => (
+                {paginatedCustomer.map((item, index) => (
                   <CardPreview
                     InfoChange={handleInfoChange}
-                    information={item}
+                    customer={item}
                     id={index}
                     key={index}
                   />
                 ))}
+                <div className="mx-auto my-3">
+                  <Pagination
+                    items={customer.length} // 100
+                    currentPage={currentPage} // 1
+                    pageSize={pageSize} // 10
+                    onPageChange={onPageChange}
+                  />
+                </div>
               </div>
               <div className="w-[32%] hidden lg:block -mt-40">
-                <CardInfo
-                  information={information[indexInformation]}
-                  allInfo={information}
-                />
+                <CardInfo customer={customer[indexCustomer]} />
               </div>
             </>
           ) : (

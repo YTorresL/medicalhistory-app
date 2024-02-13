@@ -1,6 +1,6 @@
 import { IconArrowRight, IconMapPin, IconTelephoneFill } from "../icons"
 
-export function CardPreview({ InfoChange, information, id }) {
+export function CardPreview({ InfoChange, customer, id }) {
   return (
     <>
       <div>
@@ -9,15 +9,13 @@ export function CardPreview({ InfoChange, information, id }) {
             <img src="./profile.png" className="w-14 h-14" />
             <div className="flex flex-col gap-1">
               <strong className="leading-5 text-neutral-800">
-                {information.Nombre || "---"}
+                {customer.Nombre || "---"}
               </strong>
               <div className="flex items-center gap-3 text-neutral-400">
                 <div>
                   <IconTelephoneFill className="w-4 h-4" fill="#1FBBC2" />
                 </div>
-                <span className="line-clamp-1">
-                  {information.Telef || "---"}
-                </span>
+                <span className="line-clamp-1">{customer.Telef || "---"}</span>
               </div>
             </div>
           </div>
@@ -28,9 +26,7 @@ export function CardPreview({ InfoChange, information, id }) {
                 <div>
                   <IconMapPin className="w-4 h-4" fill="#1FBBC2" />
                 </div>
-                <span className="line-clamp-1">
-                  {information.Direcc || "---"}
-                </span>
+                <span className="line-clamp-1">{customer.Direcc || "---"}</span>
               </div>
             </div>
 

@@ -1,7 +1,9 @@
 "use client"
 import { useEffect, useState } from "react"
 import { getZona } from "../info/get-info"
+import { NotificationState } from "../notification"
 import { customerSubmissionForm } from "./customer-submission-form"
+import { useOpen } from "@/hooks/useOpen"
 
 const TEXT_FORM = {
   NOMBRE: { HEAD: "Nombre completo", ATTR: "Nombre" },
@@ -21,27 +23,35 @@ const initValues = {
   Email: "",
 }
 
+export const STATE_PROCESS = {
+  SUCCESS: true,
+  CANCEL: false,
+}
+
 export function CustomerForm({ handleCreateToggle }) {
-  const [informationZona, setInformation] = useState([])
+  const [customerZona, setCustomer] = useState([])
+  const [process, setProcess] = useState(false)
   const [formValues, setFormValues] = useState(initValues)
+  const [isConfirmation] = useState(false) // Estado para controlar la apertura/cierre del mostrar un numero limitado de items
+  const { toggleView, getPopUpStyle } = useOpen(isConfirmation) // Usa el hook useOpen para controlar la visibilidad del límite // Usa el hook useOpen para controlar la visibilidad de la configuración
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getZona()
-      setInformation(data)
+      setCustomer(data)
     }
     fetchData()
   }, [])
 
   useEffect(() => {
     // Verificar si hay datos en informationZona antes de establecer el valor inicial del campo "Zona"
-    if (informationZona.length > 0 && formValues.Zona === "") {
+    if (customerZona.length > 0 && formValues.Zona === "") {
       setFormValues((prev) => ({
         ...prev,
-        Zona: informationZona[0].zona, // Establecer el valor inicial como el primer elemento de informationZona
+        Zona: customerZona[0].zona, // Establecer el valor inicial como el primer elemento de informationZona
       }))
     }
-  }, [informationZona])
+  }, [customerZona])
 
   const handleChange = (event) => {
     const { value, name } = event.target
@@ -50,6 +60,12 @@ export function CustomerForm({ handleCreateToggle }) {
       [name]: value,
     }))
   }
+
+  const handleNotificationToggle = () => {
+    toggleView()
+    setProcess(STATE_PROCESS.SUCCESS)
+  }
+
   const onSubmit = async (event) => {
     event.preventDefault()
 
@@ -57,6 +73,8 @@ export function CustomerForm({ handleCreateToggle }) {
       const response = await customerSubmissionForm(formValues)
       console.log("Respuesta del servidor:", response)
       setFormValues(initValues)
+      setProcess(STATE_PROCESS.CANCEL)
+      handleCreateToggle()
     } catch (error) {
       console.error("Error al enviar la data:", error)
     }
@@ -105,7 +123,7 @@ export function CustomerForm({ handleCreateToggle }) {
               value={formValues.Zona}
               class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
             >
-              {informationZona.map((item, index) => (
+              {customerZona.map((item, index) => (
                 <option value={item.zona} key={index}>
                   {item.nombre}
                 </option>
@@ -157,18 +175,30 @@ export function CustomerForm({ handleCreateToggle }) {
 
           <div class="md:col-span-5 text-right my-10">
             <div class="flex gap-3 justify-end">
-              <button class="bg-[#E42220] transition ease-out duration-150 hover:bg-[#e44e20] text-white text-base py-1 px-5 rounded-full">
+              <button
+                onClick={handleCreateToggle}
+                class="bg-[#E42220] transition ease-out duration-150 hover:bg-[#e44e20] text-white text-base py-1 px-5 rounded-full"
+              >
                 Cancelar
               </button>
               <button
                 type="submit"
                 class="bg-[#37A836] transition ease-out duration-150 hover:bg-[#64a836] text-white text-base py-1 px-5 rounded-full"
-                onClick={onSubmit}
+                onClick={handleNotificationToggle}
               >
                 Agregar
               </button>
             </div>
           </div>
+
+          {process === STATE_PROCESS.SUCCESS && (
+            <NotificationState
+              getPopUpStyle={getPopUpStyle}
+              handleToggle={handleNotificationToggle}
+              handleConfirmation={onSubmit}
+              state={STATE_PROCESS.SUCCESS}
+            />
+          )}
         </div>
       </div>
     </div>

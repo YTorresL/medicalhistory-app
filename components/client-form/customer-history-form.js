@@ -2,6 +2,9 @@
 import { useState } from "react"
 import { IconArrowLeft, IconArrowRight, IconEye } from "../icons"
 import { customerHistorySubmissionForm } from "./customer-history-submission-form"
+import { STATE_PROCESS } from "./customer-form"
+import { NotificationState } from "../notification"
+import { useOpen } from "@/hooks/useOpen"
 
 const FORM_STEP = {
   STEP_1: 1,
@@ -58,9 +61,12 @@ const initValues = {
   Color: "",
 }
 
-export function CustomerHistoryForm({ idClient }) {
+export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
   const [step, setStep] = useState(FORM_STEP.STEP_1)
+  const [process, setProcess] = useState(false)
   const [formValues, setFormValues] = useState(initValues)
+  const [isConfirmation] = useState(false) // Estado para controlar la apertura/cierre del mostrar un numero limitado de items
+  const { toggleView, getPopUpStyle } = useOpen(isConfirmation) // Usa el hook useOpen para controlar la visibilidad del límite // Usa el hook useOpen para controlar la visibilidad de la configuración
 
   const handleChangeStep = (id) => {
     setStep(id)
@@ -74,13 +80,23 @@ export function CustomerHistoryForm({ idClient }) {
     }))
   }
 
+  const handleNotificationToggle = () => {
+    toggleView()
+    setProcess(STATE_PROCESS.SUCCESS)
+  }
+
   const onSubmit = async (event) => {
     event.preventDefault()
 
     try {
-      const response = await customerHistorySubmissionForm(formValues, idClient)
+      const response = await customerHistorySubmissionForm(
+        formValues,
+        customerId,
+      )
       console.log("Respuesta del servidor:", response)
       setFormValues(initValues)
+      setProcess(STATE_PROCESS.CANCEL)
+      handleCreateToggle()
     } catch (error) {
       console.error("Error al enviar la data:", error)
     }
@@ -467,17 +483,28 @@ export function CustomerHistoryForm({ idClient }) {
             {step === FORM_STEP.STEP_5 && (
               <div>
                 <div class="flex gap-3 justify-end">
-                  <button class="bg-[#E42220] transition ease-out duration-150 hover:bg-[#e44e20] text-white text-base py-1 px-5 rounded-full">
+                  <button
+                    onClick={handleCreateToggle}
+                    class="bg-[#E42220] transition ease-out duration-150 hover:bg-[#e44e20] text-white text-base py-1 px-5 rounded-full"
+                  >
                     Cancelar
                   </button>
                   <button
-                    onClick={onSubmit}
+                    onClick={handleNotificationToggle}
                     class="bg-[#37A836] transition ease-out duration-150 hover:bg-[#64a836] text-white text-base py-1 px-5 rounded-full"
                   >
                     Agregar
                   </button>
                 </div>
               </div>
+            )}
+            {process === STATE_PROCESS.SUCCESS && (
+              <NotificationState
+                getPopUpStyle={getPopUpStyle}
+                handleToggle={handleNotificationToggle}
+                handleConfirmation={onSubmit}
+                state={STATE_PROCESS.SUCCESS}
+              />
             )}
           </div>
         </div>

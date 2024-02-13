@@ -18,13 +18,13 @@ export function useOpen(initialView) {
     return open === STATE_VIEW.OPEN ? "block" : "hidden"
   }
 
-  const getCreateStyle = () => {
+  const getPopUpStyle = () => {
     return open === STATE_VIEW.OPEN ? "fixed" : "hidden"
   }
 
   return {
     toggleView,
     getViewStyle,
-    getCreateStyle,
+    getPopUpStyle,
   }
 }

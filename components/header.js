@@ -1,24 +1,23 @@
 "use client"
 import Image from "next/image"
 import { IconCreateOutline, IconDownOpenMini, IconSearch } from "./icons"
-import Link from "next/link"
 import { useState } from "react"
 import { useOpen } from "@/hooks/useOpen"
 import { CreateInfo } from "./info/create-info"
 import { CustomerForm } from "./client-form/customer-form"
 
-export function Header() {
-  const [isConfigOpen] = useState(false)
+export const SIZE_PAGINATE = [10, 20, 30]
+
+export function Header({ handlePageSizeChange }) {
+  const [size, setSize] = useState(SIZE_PAGINATE[0])
   const [isLimitOpen] = useState(false)
   const [isCreateOpen] = useState(false)
-  const { toggleView: toggleConfigView, getViewStyle: getConfigViewStyle } =
-    useOpen(isConfigOpen)
+
   const { toggleView: toggleLimitView, getViewStyle: getLimitViewStyle } =
     useOpen(isLimitOpen)
-  const { toggleView: toggleCreateView, getCreateStyle: getCreateViewStyle } =
+  const { toggleView: toggleCreateView, getPopUpStyle: getCreateViewStyle } =
     useOpen(isCreateOpen)
 
-  const handleConfigToggle = () => toggleConfigView()
   const handleLimitToggle = () => toggleLimitView()
   const handleCreateToggle = () => toggleCreateView()
 
@@ -38,22 +37,6 @@ export function Header() {
               width={100}
               height={100}
             />
-          </div>
-          <button onClick={handleConfigToggle}>
-            <IconDownOpenMini className="w-8 h-8" />
-          </button>
-          <div
-            className={`${getConfigViewStyle()} transition ease-out duration-150 absolute z-[500] shadow-xl shadow-black/5 bg-white top-[76px] right-5 w-56 grid rounded-lg border-[#EDEDED] border justify-center`}
-          >
-            <Link
-              className="text-[#1FBBC2] p-3 border-b border-[#EDEDED]"
-              href={""}
-            >
-              Configuración
-            </Link>
-            <Link className="text-[#1FBBC2] p-3" href={""}>
-              Cerrar sesión
-            </Link>
           </div>
         </div>
       </div>
@@ -105,21 +88,24 @@ export function Header() {
             className="flex items-center gap-1"
             onClick={handleLimitToggle}
           >
-            <span>Mostrar menos de 5</span>
+            <span>Mostrar menos de {size}</span>
             <IconDownOpenMini className="w-7 h-7" />
           </button>
           <div
             className={`${getLimitViewStyle()} transition ease-out duration-150 absolute z-[500] shadow-xl shadow-black/5 bg-white top-[180px] right-[33%] w-56 grid rounded-lg border-[#EDEDED] border justify-center`}
           >
-            <Link
-              className="text-[#1FBBC2] p-3 border-b border-[#EDEDED]"
-              href={""}
-            >
-              Menos de 10
-            </Link>
-            <Link className="text-[#1FBBC2] p-3" href={""}>
-              Menos de 20
-            </Link>
+            {SIZE_PAGINATE.map((item) => (
+              <button
+                onClick={() => {
+                  handlePageSizeChange(item)
+                  setSize(item)
+                }}
+                className="text-[#1FBBC2] p-3 border-b border-[#EDEDED]"
+                key={item}
+              >
+                Menos de {item}
+              </button>
+            ))}
           </div>
         </div>
       </div>

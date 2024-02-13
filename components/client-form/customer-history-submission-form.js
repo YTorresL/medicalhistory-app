@@ -1,5 +1,5 @@
-export const customerHistorySubmissionForm = async (data, clienteId) => {
-  data.codigoCliente = clienteId
+export const customerHistorySubmissionForm = async (data, customerId) => {
+  data.codigoCliente = customerId
   const response = await fetch(
     "https://testsh.alphasoft.com.ve/sh-oft/addHIST",
     {

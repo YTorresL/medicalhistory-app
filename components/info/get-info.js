@@ -1,4 +1,4 @@
-export async function getHistorial() {
+export async function getHistory() {
   const res = await fetch(`https://testsh.alphasoft.com.ve/sh-oft/getCLI`)
 
   if (!res.ok) {

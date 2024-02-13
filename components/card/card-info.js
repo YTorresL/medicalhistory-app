@@ -6,9 +6,10 @@ import { useOpen } from "@/hooks/useOpen"
 import { CreateInfo } from "../info/create-info"
 import { CustomerHistoryForm } from "../client-form/customer-history-form"
 
-export function CardInfo({ information, allInfo }) {
+export function CardInfo({ customer }) {
   const [isCreateOpen] = useState(false) // Estado para controlar la apertura/cierre del mostrar un numero limitado de items
-  const { toggleView, getCreateStyle } = useOpen(isCreateOpen) // Usa el hook useOpen para controlar la visibilidad del límite // Usa el hook useOpen para controlar la visibilidad de la configuración
+
+  const { toggleView, getPopUpStyle } = useOpen(isCreateOpen) // Usa el hook useOpen para controlar la visibilidad del límite // Usa el hook useOpen para controlar la visibilidad de la configuración
 
   const handleCreateToggle = () => {
     toggleView()
@@ -19,7 +20,7 @@ export function CardInfo({ information, allInfo }) {
       <div className="relative bg-white rounded-l-lg shadow-lg">
         <div
           className="flex flex-col w-full gap-6 p-10 pb-20 animate-fade animate-duration-300"
-          key={information.Codigo}
+          key={customer.Codigo}
         >
           <Link className="flex justify-end w-full -mt-3" href={""}>
             <span className="text-[#1FBBC2] transition ease-out duration-150 hover:text-[#1fafc2] font-bold -mr-4">
@@ -31,46 +32,42 @@ export function CardInfo({ information, allInfo }) {
             <div className="flex flex-col gap-1">
               <strong className="text-neutral-800">Nombre</strong>
               <span className="leading-5 text-neutral-400">
-                {information.Nombre || "---"}
+                {customer.Nombre || "---"}
               </span>
             </div>
             <div className="flex flex-col gap-1">
               <strong className="text-neutral-800">RIF</strong>
-              <span className="text-neutral-400">
-                {information.Rif || "---"}
-              </span>
+              <span className="text-neutral-400">{customer.Rif || "---"}</span>
             </div>
             <div className="flex flex-col gap-1">
               <strong className="text-neutral-800">Especialista</strong>
-              <span className="text-neutral-400">
-                {information.Zona || "---"}
-              </span>
+              <span className="text-neutral-400">{customer.Zona || "---"}</span>
             </div>
             <div className="flex flex-col gap-1">
               <strong className="text-neutral-800">Telefono</strong>
               <span className="text-neutral-400">
-                {information.Telef || "---"}
+                {customer.Telef || "---"}
               </span>
             </div>
             <div className="flex flex-col col-span-2 gap-1">
               <strong className="text-neutral-800">Correo</strong>
               <span className="leading-5 text-neutral-400">
-                {information.Email || "---"}
+                {customer.Email || "---"}
               </span>
             </div>
             <div className="flex flex-col col-span-2 gap-1">
               <strong className="text-neutral-800">Dirección</strong>
               <span className="leading-5 text-neutral-400">
-                {information.Direcc || "---"}
+                {customer.Direcc || "---"}
               </span>
             </div>
           </div>
           <div className="flex flex-col">
             <strong className="text-[#1FBBC2]">Historial</strong>
             <div className="flex flex-col items-center w-full">
-              {information.historias.length > 0 ? (
+              {customer.historias.length > 0 ? (
                 <div className="w-full">
-                  {information.historias.map((item, index) => (
+                  {customer.historias.map((item, index) => (
                     <div
                       key={index}
                       className="w-full border-b-2 border-[#1FBBC2] py-3 my-2"
@@ -260,13 +257,13 @@ export function CardInfo({ information, allInfo }) {
         </div>
       </div>
       <CreateInfo
-        getCreateViewStyle={getCreateStyle}
+        getCreateViewStyle={getPopUpStyle}
         handleToggle={handleCreateToggle}
         title="Agregar al historial"
       >
         <CustomerHistoryForm
-          information={allInfo}
-          idClient={information.Codigo}
+          customerId={customer.Codigo}
+          handleCreateToggle={handleCreateToggle}
         />
       </CreateInfo>
     </>

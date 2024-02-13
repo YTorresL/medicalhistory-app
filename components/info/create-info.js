@@ -21,7 +21,7 @@ export function CreateInfo({
               className="flex p-2 items-center justify-center h-10 w-10  rounded-full bg-[#eeeeee] hover:bg-white transition ease-out duration-150"
             >
               <IconClose
-                className="w-full text- [#1FBBC2] h-full"
+                className="w-full h-full"
                 stroke="#1FBBC2"
                 fill="#1FBBC2"
               />
