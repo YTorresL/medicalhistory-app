@@ -9,14 +9,14 @@ export async function getHistorial() {
   return data.map(
     ({ Rif, Nombre, Codigo, Zona, Telef, Direcc, historias, Email }) => {
       return {
-        rif: Rif,
-        nombre: Nombre,
-        codigo: Codigo,
-        zona: Zona,
-        telef: Telef,
-        direcc: Direcc,
+        Rif,
+        Nombre,
+        Codigo,
+        Zona,
+        Telef,
+        Direcc,
         historias,
-        email: Email,
+        Email,
       }
     },
   )

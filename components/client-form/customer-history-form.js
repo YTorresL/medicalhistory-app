@@ -35,8 +35,9 @@ const TEXT_FORM = {
 }
 
 const initValues = {
+  codigoCliente: "",
   edad: "",
-  sexo: "",
+  sexo: TEXT_FORM.SEXO.OPTION[0],
   OI_Esfera: "",
   OI_Cilindro: "",
   OI_Eje: "",
@@ -57,15 +58,13 @@ const initValues = {
   Color: "",
 }
 
-export function CustomerHistoryForm({ information }) {
+export function CustomerHistoryForm({ idClient }) {
   const [step, setStep] = useState(FORM_STEP.STEP_1)
   const [formValues, setFormValues] = useState(initValues)
 
   const handleChangeStep = (id) => {
     setStep(id)
   }
-
-  console.log(information)
 
   const handleChangeForm = (event) => {
     const { value, name } = event.target
@@ -79,10 +78,7 @@ export function CustomerHistoryForm({ information }) {
     event.preventDefault()
 
     try {
-      const response = await customerHistorySubmissionForm(
-        information,
-        formValues,
-      )
+      const response = await customerHistorySubmissionForm(formValues, idClient)
       console.log("Respuesta del servidor:", response)
       setFormValues(initValues)
     } catch (error) {
