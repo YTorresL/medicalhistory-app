@@ -1,46 +1,51 @@
 "use client"
-import { CardInfo } from "@/components/card/card-info"
-import { CardPreview } from "@/components/card/card-preview"
-import { getHistory } from "@/components/info/get-info"
+import { CustomerCardInfo } from "@/components/card/customer-card-info"
+import { CustomerCardPreview } from "@/components/card/customer-card-preview"
+import { getHistory } from "@/components/getdata/get-info"
 import { Header, SIZE_PAGINATE } from "@/components/header"
 import { IconLoading } from "@/components/icons"
 import { SideBar } from "@/components/sidebar"
 import { useEffect, useState } from "react"
-import { Pagination } from "@/components/pagination"
+import { Pagination } from "@/utils/pagination"
 
-const paginate = (items, pageNumber, pageSize) => {
-  const startIndex = (pageNumber - 1) * pageSize
+const paginate = (items, currentPageNumber, pageSize) => {
+  const startIndex = (currentPageNumber - 1) * pageSize
   return items.slice(startIndex, startIndex + pageSize)
 }
 
 export default function Home() {
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPageNumber, setCurrentPageNumber] = useState(1)
   const [customer, setCustomer] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [indexCustomer, setIndexCustomer] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
+  const [indexCustomer, setIndexCustomer] = useState(null)
   const [pageSize, setPageSize] = useState(SIZE_PAGINATE[0])
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getHistory()
       setCustomer(data)
-      setLoading(true)
+      setIsLoading(true)
     }
     fetchData()
   }, [])
 
   const onPageChange = (page) => {
-    setCurrentPage(page)
+    setCurrentPageNumber(page)
   }
   const handleInfoChange = (id) => {
     setIndexCustomer(id)
   }
 
   const handlePageSizeChange = (size) => {
+    setCurrentPageNumber(1)
     setPageSize(size)
   }
 
-  const paginatedCustomer = paginate(customer, currentPage, pageSize)
+  const paginatedCustomer = paginate(customer, currentPageNumber, pageSize)
+
+  const selectedCustomer = customer.findIndex(
+    (item) => item.Codigo === indexCustomer,
+  )
 
   return (
     <div className="flex">
@@ -48,28 +53,31 @@ export default function Home() {
       <div className="flex flex-col w-full">
         <Header handlePageSizeChange={handlePageSizeChange} />
         <main className="z-20 flex">
-          {loading ? (
+          {isLoading ? (
             <>
               <div className="lg:w-[68%] w-full flex flex-col gap-5 -mt-9 mb-14 animate-fade animate-duration-300">
                 {paginatedCustomer.map((item, index) => (
-                  <CardPreview
+                  <CustomerCardPreview
                     InfoChange={handleInfoChange}
                     customer={item}
-                    id={index}
                     key={index}
                   />
                 ))}
                 <div className="mx-auto my-3">
                   <Pagination
                     items={customer.length} // 100
-                    currentPage={currentPage} // 1
+                    currentPage={currentPageNumber} // 1
                     pageSize={pageSize} // 10
                     onPageChange={onPageChange}
                   />
                 </div>
               </div>
               <div className="w-[32%] hidden lg:block -mt-40">
-                <CardInfo customer={customer[indexCustomer]} />
+                <CustomerCardInfo
+                  customer={
+                    customer[selectedCustomer === -1 ? 0 : selectedCustomer]
+                  }
+                />
               </div>
             </>
           ) : (
