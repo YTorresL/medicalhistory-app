@@ -8,7 +8,7 @@ import { CustomerForm } from "./client-form/customer-form"
 
 export const SIZE_PAGINATE = [10, 20, 30]
 
-export function Header({ handlePageSizeChange }) {
+export function Header({ handlePageSizeChange, searchCustomer }) {
   const [size, setSize] = useState(SIZE_PAGINATE[0])
   const [isLimitOpen] = useState(false)
   const [isCreateOpen] = useState(false)
@@ -20,7 +20,7 @@ export function Header({ handlePageSizeChange }) {
 
   const handleLimitToggle = () => toggleLimitView()
   const handleCreateToggle = () => toggleCreateView()
-
+  const [search, setSearch] = useState("")
   return (
     <header className="bg-[#1FBBC2] h-60 pl-[6%] lg:pl-[4%] pr-[2%] text-white">
       <div className="flex items-center justify-between w-full h-20">
@@ -45,19 +45,24 @@ export function Header({ handlePageSizeChange }) {
           <div className="flex items-center gap-3 lg:w-3/5">
             <form className="w-full">
               <label htmlFor="search" className="text-white sr-only">
-                Search
+                Buscar
               </label>
               <div className="relative">
                 <input
                   type="search"
                   id="search"
+                  onChange={(e) => setSearch(e.target.value)}
                   autoComplete="off"
                   className="w-full px-5 py-3 rounded-full outline-none bg-white/20 white-input"
-                  placeholder="Search"
+                  placeholder="Buscar cliente..."
                   required
+                  value={search}
                 />
                 <button
-                  type="submit"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    searchCustomer(search)
+                  }}
                   className="text-[#1FBBC2] absolute right-1 top-1/2 -translate-y-1/2 p-2 transition ease-out duration-150 bg-white hover:bg-[#eeeeee] rounded-full"
                 >
                   <IconSearch className="w-5 h-5" />

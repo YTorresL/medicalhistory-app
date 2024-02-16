@@ -160,7 +160,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 value={formValues.OI_Esfera}
                 onChange={handleChangeForm}
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="30.394.495"
                 autoComplete="off"
               />
             </div>
@@ -176,7 +175,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 autoComplete="off"
                 value={formValues.OI_Cilindro}
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="Avenida libertador"
               />
             </div>
             <div class="md:col-span-2">
@@ -190,7 +188,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 value={formValues.OI_Eje}
                 autoComplete="off"
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="0412 38448453"
               />
             </div>
             <div class="md:col-span-2">
@@ -204,7 +201,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 autoComplete="off"
                 value={formValues.OI_Distancia}
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="correo@dominio.com"
               />
             </div>
             <div class="md:col-span-2">
@@ -217,7 +213,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 onChange={handleChangeForm}
                 value={formValues.OI_Adicion}
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="30.394.495"
                 autoComplete="off"
               />
             </div>
@@ -239,7 +234,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 onChange={handleChangeForm}
                 value={formValues.OD_Esfera}
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="30.394.495"
                 autoComplete="off"
               />
             </div>
@@ -255,7 +249,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 autoComplete="off"
                 value={formValues.OD_Cilindro}
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="Avenida libertador"
               />
             </div>
             <div class="md:col-span-2">
@@ -269,7 +262,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 value={formValues.OD_Eje}
                 autoComplete="off"
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="0412 38448453"
               />
             </div>
             <div class="md:col-span-2">
@@ -283,7 +275,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 autoComplete="off"
                 value={formValues.OD_Distancia}
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="correo@dominio.com"
               />
             </div>
             <div class="md:col-span-2">
@@ -297,7 +288,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 autoComplete="off"
                 value={formValues.OD_Adicion}
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="correo@dominio.com"
               />
             </div>
           </div>
@@ -314,7 +304,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 onChange={handleChangeForm}
                 value={formValues.DNP}
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="30.394.495"
                 autoComplete="off"
               />
             </div>
@@ -330,7 +319,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 autoComplete="off"
                 value={formValues.Altura}
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="Avenida libertador"
               />
             </div>
             <div class="md:col-span-2">
@@ -344,7 +332,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 onChange={handleChangeForm}
                 autoComplete="off"
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="0412 38448453"
               />
             </div>
             <div class="md:col-span-2">
@@ -358,7 +345,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 autoComplete="off"
                 value={formValues.Tm}
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="correo@dominio.com"
               />
             </div>
             <div class="md:col-span-2">
@@ -372,7 +358,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 autoComplete="off"
                 value={formValues.Pt}
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="correo@dominio.com"
               />
             </div>
           </div>
@@ -389,7 +374,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 onChange={handleChangeForm}
                 value={formValues.Cristales}
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="30.394.495"
                 autoComplete="off"
               />
             </div>
@@ -405,7 +389,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 autoComplete="off"
                 value={formValues.Montura}
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="Avenida libertador"
               />
             </div>
             <div class="md:col-span-2">
@@ -419,7 +402,6 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 value={formValues.Color}
                 autoComplete="off"
                 class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="0412 38448453"
               />
             </div>
           </div>

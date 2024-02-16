@@ -1,12 +1,22 @@
 "use client"
-import Link from "next/link"
 import { IconMathPlus } from "../icons"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { useOpen } from "@/hooks/useOpen"
 import { CreateInfo } from "../info/create-info"
 import { CustomerHistoryForm } from "../client-form/customer-history-form"
+import { ZonaContext } from "@/context/zona"
+import {
+  Page,
+  Text,
+  View,
+  Document,
+  StyleSheet,
+  Image,
+  PDFDownloadLink,
+} from "@react-pdf/renderer"
 
 export function CardInfo({ customer }) {
+  const { getZona } = useContext(ZonaContext)
   const [isCreateOpen] = useState(false) // Estado para controlar la apertura/cierre del mostrar un numero limitado de items
 
   const { toggleView, getPopUpStyle } = useOpen(isCreateOpen) // Usa el hook useOpen para controlar la visibilidad del límite // Usa el hook useOpen para controlar la visibilidad de la configuración
@@ -22,11 +32,15 @@ export function CardInfo({ customer }) {
           className="flex flex-col w-full gap-6 p-10 pb-20 animate-fade animate-duration-300"
           key={customer.Codigo}
         >
-          <Link className="flex justify-end w-full -mt-3" href={""}>
+          <PDFDownloadLink
+            document={<PrintClienteHistoria cliente={customer} />}
+            fileName={`Historia-${customer.Nombre.replace(/\s/g, "-")}.pdf`}
+          >
             <span className="text-[#1FBBC2] transition ease-out duration-150 hover:text-[#1fafc2] font-bold -mr-4">
               Descargar PDF
             </span>
-          </Link>
+          </PDFDownloadLink>
+
           <img src="./profile.png" className="w-56 h-auto mx-auto" />
           <div className="grid items-center grid-cols-2 gap-5">
             <div className="flex flex-col gap-1">
@@ -41,7 +55,9 @@ export function CardInfo({ customer }) {
             </div>
             <div className="flex flex-col gap-1">
               <strong className="text-neutral-800">Especialista</strong>
-              <span className="text-neutral-400">{customer.Zona || "---"}</span>
+              <span className="text-neutral-400">
+                {getZona(customer.Zona)?.descrip || "---"}
+              </span>
             </div>
             <div className="flex flex-col gap-1">
               <strong className="text-neutral-800">Telefono</strong>
@@ -269,3 +285,95 @@ export function CardInfo({ customer }) {
     </>
   )
 }
+
+// Create styles to client history
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: "column",
+    /* backgroundColor: "#E4E4E4", */
+  },
+  section: {
+    margin: 10,
+    padding: 10,
+    flexGrow: 1,
+  },
+  headerText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#1FBBC2",
+  },
+  textHistory: {
+    fontSize: 11,
+    flexGrow: 1,
+    padding: 10,
+  },
+  divider: {
+    borderBottom: 2,
+    borderColor: "#1FBBC2",
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  logo: {
+    width: 50,
+    height: 50,
+  },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+})
+
+// Create Document Component
+const PrintClienteHistoria = ({ cliente }) => (
+  <Document>
+    <Page size="letter" style={styles.page}>
+      <View style={styles.section}>
+        <View style={styles.headerContainer}>
+          <Image src="./optiluz.jpg" style={styles.logo} />
+          <Text style={styles.headerText}>OPTILUZ, C.A.</Text>
+          <Text style={styles.headerText}>Historia del paciente</Text>
+        </View>
+        <View style={styles.divider} />
+        <View style={styles.textHistory}>
+          <Text>Cliente</Text>
+          <Text>Nombre: {cliente.Nombre}</Text>
+          <Text>RIF: {cliente.Rif}</Text>
+          <Text>Telefono: {cliente.Telef}</Text>
+          <Text>Correo: {cliente.Email}</Text>
+          <Text>Dirección: {cliente.Direcc}</Text>
+          <Text>Historia</Text>
+          <View style={styles.divider} />
+          {cliente.historias.map((item, index) => (
+            <View key={index}>
+              <Text>Fecha: {item.fecha}</Text>
+              <Text>Edad: {item.edad}</Text>
+              <Text>Sexo: {item.sexo}</Text>
+              <Text>Ojo Izquierdo</Text>
+              <Text>Esfera: {item.OI_Esfera}</Text>
+              <Text>Cilindro: {item.OI_Cilindro}</Text>
+              <Text>Eje: {item.OI_Eje}</Text>
+              <Text>Distancia: {item.OI_Distancia}</Text>
+              <Text>Adición: {item.OI_Adicion}</Text>
+              <Text>Ojo Derecho</Text>
+              <Text>Esfera: {item.OD_Esfera}</Text>
+              <Text>Cilindro: {item.OD_Cilindro}</Text>
+              <Text>Eje: {item.OD_Eje}</Text>
+              <Text>Distancia: {item.OD_Distancia}</Text>
+              <Text>Adición: {item.OD_Adicion}</Text>
+              <Text>DNP: {item.DNP}</Text>
+              <Text>Altura: {item.Altura}</Text>
+              <Text>DP: {item.DP}</Text>
+              <Text>TM: {item.Tm}</Text>
+              <Text>PT: {item.Pt}</Text>
+              <Text>Cristales: {item.Cristales}</Text>
+              <Text>Montura: {item.Montura}</Text>
+              <Text>Color: {item.Color}</Text>
+              <View style={styles.divider} />
+            </View>
+          ))}
+        </View>
+      </View>
+    </Page>
+  </Document>
+)
