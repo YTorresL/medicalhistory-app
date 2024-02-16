@@ -1,6 +1,6 @@
 import { IconArrowRight, IconMapPin, IconTelephoneFill } from "../icons"
 
-export function CardPreview({ InfoChange, customer, id }) {
+export function CustomerCardPreview({ InfoChange, customer }) {
   return (
     <>
       <div>
@@ -33,7 +33,7 @@ export function CardPreview({ InfoChange, customer, id }) {
             <div>
               <button
                 className="flex items-center rounded-full p-2 transition ease-out duration-150 hover:bg-[#eeeeee] bg-[#F9FAFE]"
-                onClick={() => InfoChange(id)}
+                onClick={() => InfoChange(customer.Codigo)}
               >
                 <IconArrowRight className="w-6 h-6" fill="#1FBBC2" />
               </button>

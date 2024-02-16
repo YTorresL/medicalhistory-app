@@ -3,8 +3,8 @@ import Image from "next/image"
 import { IconCreateOutline, IconDownOpenMini, IconSearch } from "./icons"
 import { useState } from "react"
 import { useOpen } from "@/hooks/useOpen"
-import { CreateInfo } from "./info/create-info"
-import { CustomerForm } from "./client-form/customer-form"
+import { FormHandler } from "./popup/form-handler"
+import { CustomerForm } from "./forms/customer-form"
 
 export const SIZE_PAGINATE = [10, 20, 30]
 
@@ -80,13 +80,13 @@ export function Header({ handlePageSizeChange, searchCustomer }) {
                   fill="#1FBBC2"
                 />
               </button>
-              <CreateInfo
+              <FormHandler
                 getCreateViewStyle={getCreateViewStyle}
                 handleToggle={handleCreateToggle}
                 title="Crear un cliente"
               >
                 <CustomerForm handleCreateToggle={handleCreateToggle} />
-              </CreateInfo>
+              </FormHandler>
             </div>
           </div>
           <button
@@ -97,13 +97,14 @@ export function Header({ handlePageSizeChange, searchCustomer }) {
             <IconDownOpenMini className="w-7 h-7" />
           </button>
           <div
-            className={`${getLimitViewStyle()} transition ease-out duration-150 absolute z-[500] shadow-xl shadow-black/5 bg-white top-[180px] right-[33%] w-56 grid rounded-lg border-[#EDEDED] border justify-center`}
+            className={`${getLimitViewStyle()} transition ease-out duration-150 absolute z-[300] shadow-xl shadow-black/5 bg-white top-[180px] right-[33%] w-56 grid rounded-lg border-[#EDEDED] border justify-center`}
           >
             {SIZE_PAGINATE.map((item) => (
               <button
                 onClick={() => {
                   handlePageSizeChange(item)
                   setSize(item)
+                  handleLimitToggle()
                 }}
                 className="text-[#1FBBC2] p-3 border-b border-[#EDEDED]"
                 key={item}

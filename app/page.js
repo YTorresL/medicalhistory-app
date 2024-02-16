@@ -1,7 +1,7 @@
 "use client"
-import { CardInfo } from "@/components/card/card-info"
-import { CardPreview } from "@/components/card/card-preview"
-import { getHistory } from "@/components/info/get-info"
+import { CustomerCardInfo } from "@/components/card/customer-card-info"
+import { CustomerCardPreview } from "@/components/card/customer-card-preview"
+import { getHistory } from "@/components/getdata/get-info"
 import { Header, SIZE_PAGINATE } from "@/components/header"
 import { IconLoading } from "@/components/icons"
 import { SideBar } from "@/components/sidebar"
@@ -10,13 +10,13 @@ import { Pagination } from "@/components/pagination"
 import { ZonaProvider } from "@/context/zona"
 import Head from "next/head"
 
-const paginate = (items, pageNumber, pageSize) => {
-  const startIndex = (pageNumber - 1) * pageSize
+const paginate = (items, currentPageNumber, pageSize) => {
+  const startIndex = (currentPageNumber - 1) * pageSize
   return items.slice(startIndex, startIndex + pageSize)
 }
 
 export default function Home() {
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPageNumber, setCurrentPageNumber] = useState(1)
   const [customer, setCustomer] = useState([])
   const [customerSearchOrg, setCustomerOrg] = useState([])
 
@@ -50,17 +50,22 @@ export default function Home() {
   }
 
   const onPageChange = (page) => {
-    setCurrentPage(page)
+    setCurrentPageNumber(page)
   }
   const handleInfoChange = (id) => {
     setIndexCustomer(id)
   }
 
   const handlePageSizeChange = (size) => {
+    setCurrentPageNumber(1)
     setPageSize(size)
   }
 
-  const paginatedCustomer = paginate(customer, currentPage, pageSize)
+  const paginatedCustomer = paginate(customer, currentPageNumber, pageSize)
+
+  const selectedCustomer = customer.findIndex(
+    (item) => item.Codigo === indexCustomer,
+  )
 
   return (
     <div className="flex">

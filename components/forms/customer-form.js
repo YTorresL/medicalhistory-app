@@ -1,8 +1,8 @@
 "use client"
 import { useEffect, useState } from "react"
-import { getZona } from "../info/get-info"
-import { NotificationState } from "../notification"
-import { customerSubmissionForm } from "./customer-submission-form"
+import { getZona } from "../getdata/get-info"
+import { DataValidation } from "../popup/data-validation"
+import { customerSubmissionForm } from "../submission/customer-submission-form"
 import { useOpen } from "@/hooks/useOpen"
 
 const TEXT_FORM = {
@@ -192,7 +192,7 @@ export function CustomerForm({ handleCreateToggle }) {
           </div>
 
           {process === STATE_PROCESS.SUCCESS && (
-            <NotificationState
+            <DataValidation
               getPopUpStyle={getPopUpStyle}
               handleToggle={handleNotificationToggle}
               handleConfirmation={onSubmit}

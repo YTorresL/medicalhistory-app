@@ -1,7 +1,7 @@
-import { STATE_PROCESS } from "./client-form/customer-form"
-import { IconCheck, IconClose } from "./icons"
+import { STATE_PROCESS } from "../forms/customer-form"
+import { IconCheck, IconClose } from "../icons"
 
-export function NotificationState({
+export function DataValidation({
   getPopUpStyle,
   handleToggle,
   handleConfirmation,

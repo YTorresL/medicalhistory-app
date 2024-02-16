@@ -1,6 +1,6 @@
 import { IconClose } from "../icons"
 
-export function CreateInfo({
+export function FormHandler({
   getCreateViewStyle,
   handleToggle,
   title,

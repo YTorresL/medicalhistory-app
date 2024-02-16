@@ -16,17 +16,16 @@ export function Pagination({ items, pageSize, currentPage, onPageChange }) {
         </li>
         {pages.map((page) => (
           <li key={page}>
-            <a
-              href="#"
+            <button
               onClick={() => onPageChange(page)}
-              className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 ${
+              className={`flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 ${
                 currentPage === page
-                  ? "bg-[#d3f3f5] text-gray-700"
+                  ? "bg-[#d3f3f5] text-[#1FBBC2] font-bold"
                   : "hover:bg-gray-100 hover:text-gray-700"
               }`}
             >
               {page}
-            </a>
+            </button>
           </li>
         ))}
         <li>
