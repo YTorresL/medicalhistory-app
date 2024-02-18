@@ -1,25 +1,39 @@
 "use client"
 import Image from "next/image"
-import { IconCreateOutline, IconDownOpenMini, IconSearch } from "./icons"
+import {
+  IconCreateOutline,
+  IconDownOpenMini,
+  IconFolderAdd,
+  IconSearch,
+} from "./icons"
 import { useState } from "react"
 import { useOpen } from "@/hooks/useOpen"
 import { FormHandler } from "./popup/form-handler"
 import { CustomerForm } from "./forms/customer-form"
+import { CustomerHistoryForm } from "./forms/customer-history-form"
 
 export const SIZE_PAGINATE = [10, 20, 30]
 
 export function Header({ handlePageSizeChange, searchCustomer }) {
   const [size, setSize] = useState(SIZE_PAGINATE[0])
   const [isLimitOpen] = useState(false)
-  const [isCreateOpen] = useState(false)
+  const [isCreateOpenCustomer] = useState(false)
+  const [isCreateOpenHistory] = useState(false)
 
   const { toggleView: toggleLimitView, getViewStyle: getLimitViewStyle } =
     useOpen(isLimitOpen)
   const { toggleView: toggleCreateView, getPopUpStyle: getCreateViewStyle } =
-    useOpen(isCreateOpen)
+    useOpen(isCreateOpenCustomer)
+
+  const { toggleView: HistorytoggleView, getPopUpStyle: getPopUpHistoryStyle } =
+    useOpen(isCreateOpenHistory)
+
+  const handleCreateToggleHistory = () => {
+    HistorytoggleView()
+  }
 
   const handleLimitToggle = () => toggleLimitView()
-  const handleCreateToggle = () => toggleCreateView()
+  const handleCreateToggleCustomer = () => toggleCreateView()
   const [search, setSearch] = useState("")
   return (
     <header className="bg-[#1FBBC2] h-60 pl-[6%] lg:pl-[4%] pr-[2%] text-white">
@@ -69,9 +83,11 @@ export function Header({ handlePageSizeChange, searchCustomer }) {
                 </button>
               </div>
             </form>
+
             <div>
               <button
-                onClick={handleCreateToggle}
+                onClick={handleCreateToggleCustomer}
+                title="Crear cliente"
                 className="flex p-2 items-center justify-center h-10 w-10 bg-white rounded-full hover:bg-[#eeeeee] transition ease-out duration-150"
               >
                 <IconCreateOutline
@@ -82,10 +98,28 @@ export function Header({ handlePageSizeChange, searchCustomer }) {
               </button>
               <FormHandler
                 getCreateViewStyle={getCreateViewStyle}
-                handleToggle={handleCreateToggle}
+                handleToggle={handleCreateToggleCustomer}
                 title="Crear un cliente"
               >
-                <CustomerForm handleCreateToggle={handleCreateToggle} />
+                <CustomerForm handleCreateToggle={handleCreateToggleCustomer} />
+              </FormHandler>
+            </div>
+            <div>
+              <button
+                onClick={handleCreateToggleHistory}
+                title="Crear historial médico"
+                className="rounded-full p-2 transition ease-out duration-150 bg-white hover:bg-[#eeeeee]"
+              >
+                <IconFolderAdd className="w-6 h-6 text-[#1FBBC2]" />
+              </button>
+              <FormHandler
+                getCreateViewStyle={getPopUpHistoryStyle}
+                handleToggle={handleCreateToggleHistory}
+                title="Agregar al historial"
+              >
+                <CustomerHistoryForm
+                  handleCreateToggle={handleCreateToggleHistory}
+                />
               </FormHandler>
             </div>
           </div>

@@ -15,3 +15,9 @@ html {
 button {
   outline: none;
 }
+
+.blue-input::placeholder {
+  font-weight: 600;
+  opacity: 0.5;
+  color: #1fbbc2;
+}

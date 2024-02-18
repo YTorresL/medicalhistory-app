@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react"
-import { IconArrowLeft, IconArrowRight, IconEye } from "../icons"
+import { IconArrowLeft, IconArrowRight, IconSearch } from "../icons"
 import { customerHistorySubmissionForm } from "../submission/customer-history-submission-form"
 import { STATE_PROCESS } from "./customer-form"
 import { DataValidation } from "../popup/data-validation"
@@ -9,9 +9,6 @@ import { useOpen } from "@/hooks/useOpen"
 const FORM_STEP = {
   STEP_1: 1,
   STEP_2: 2,
-  STEP_3: 3,
-  STEP_4: 4,
-  STEP_5: 5,
 }
 
 const TEXT_FORM = {
@@ -61,7 +58,7 @@ const initValues = {
   Color: "",
 }
 
-export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
+export function CustomerHistoryForm({ handleCreateToggle }) {
   const [step, setStep] = useState(FORM_STEP.STEP_1)
   const [process, setProcess] = useState(false)
   const [formValues, setFormValues] = useState(initValues)
@@ -89,10 +86,7 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
     event.preventDefault()
 
     try {
-      const response = await customerHistorySubmissionForm(
-        formValues,
-        customerId,
-      )
+      const response = await customerHistorySubmissionForm(formValues, "0001")
       console.log("Respuesta del servidor:", response)
       setFormValues(initValues)
       setProcess(STATE_PROCESS.CANCEL)
@@ -103,336 +97,372 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
   }
 
   return (
-    <div className="flex items-center h-[90%] text-black relative">
-      <div class="w-3/4 mx-auto flex flex-col items-center gap-3">
+    <div className="flex items-center h-[88%] text-black relative">
+      <div class="w-5/6 mx-auto flex flex-col items-center gap-3">
         {step === FORM_STEP.STEP_1 && (
-          <div class="grid gap-4 gap-y-2 text-sm md:grid-cols-4 animate-fade">
-            <div class="md:col-span-2">
-              <label for={TEXT_FORM.EDAD.ATTR} className="text-[#1FBBC2]">
-                {TEXT_FORM.EDAD.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.EDAD.ATTR}
-                value={formValues.edad}
-                onChange={handleChangeForm}
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="18"
-                autoComplete="off"
-              />
+          <div className="w-full animate-fade">
+            <div className="flex items-center justify-between mb-8">
+              <form className="w-2/5">
+                <label htmlFor="search" className="text-white sr-only">
+                  Buscar
+                </label>
+                <div className="relative">
+                  <input
+                    type="search"
+                    id="search"
+                    autoComplete="off"
+                    className="w-full px-5 py-3 outline-none text-neutral-400 border-b border-[#1FBBC2] blue-input"
+                    placeholder="30201361"
+                    required
+                  />
+                  <button className="text-white absolute right-1 top-1/2 -translate-y-1/2 p-2 transition ease-out duration-150 bg-[#1FBBC2] hover:bg-[#1fafc2] rounded-full">
+                    <IconSearch className="w-4 h-4" />
+                  </button>
+                </div>
+              </form>
+              <span className="flex-shrink-0">Antonio Lopez</span>
             </div>
-            <div class="md:col-span-2">
-              <label for={TEXT_FORM.SEXO.ATTR} className="text-[#1FBBC2]">
-                {TEXT_FORM.SEXO.HEAD}
-              </label>
-              <select
-                name={TEXT_FORM.SEXO.ATTR}
-                value={formValues.sexo}
-                onChange={handleChangeForm}
-                autoComplete="off"
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-              >
-                {TEXT_FORM.SEXO.OPTION.map((item, index) => (
-                  <option value={item} key={index}>
-                    {item}
-                  </option>
-                ))}
-              </select>
+
+            <div class="grid gap-4 gap-y-2 text-sm md:grid-cols-4">
+              <div class="md:col-span-2">
+                <label for={TEXT_FORM.EDAD.ATTR} className="text-[#1FBBC2]">
+                  {TEXT_FORM.EDAD.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.EDAD.ATTR}
+                  value={formValues.edad}
+                  onChange={handleChangeForm}
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="18"
+                  autoComplete="off"
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label for={TEXT_FORM.SEXO.ATTR} className="text-[#1FBBC2]">
+                  {TEXT_FORM.SEXO.HEAD}
+                </label>
+                <select
+                  name={TEXT_FORM.SEXO.ATTR}
+                  value={formValues.sexo}
+                  onChange={handleChangeForm}
+                  autoComplete="off"
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                >
+                  {TEXT_FORM.SEXO.OPTION.map((item, index) => (
+                    <option value={item} key={index}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div class="grid gap-4 gap-y-2 items-center text-sm md:grid-cols-6 animate-fade">
+              <div className="flex items-center col-span-6 gap-4 my-5">
+                <div className="w-full my-1 border-b border-dashed border-[#EDEDED]"></div>
+                <span className="flex-shrink-0 text-sm uppercase text-neutral-400">
+                  Ojo Izquierdo
+                </span>
+                <div className="w-full my-1 border-b border-dashed border-[#EDEDED]"></div>
+              </div>
+
+              <div class="md:col-span-2">
+                <label
+                  for={TEXT_FORM.OI_ESFERA.ATTR}
+                  className="text-[#1FBBC2]"
+                >
+                  {TEXT_FORM.OI_ESFERA.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.OI_ESFERA.ATTR}
+                  value={formValues.OI_Esfera}
+                  onChange={handleChangeForm}
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="+1.00"
+                  autoComplete="off"
+                />
+              </div>
+
+              <div class="md:col-span-2">
+                <label
+                  for={TEXT_FORM.OI_CILINDRO.ATTR}
+                  className="text-[#1FBBC2]"
+                >
+                  {TEXT_FORM.OI_CILINDRO.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.OI_CILINDRO.ATTR}
+                  onChange={handleChangeForm}
+                  autoComplete="off"
+                  value={formValues.OI_Cilindro}
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="+1.00"
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label for={TEXT_FORM.OI_EJE.ATTR} className="text-[#1FBBC2]">
+                  {TEXT_FORM.OI_EJE.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.OI_EJE.ATTR}
+                  onChange={handleChangeForm}
+                  value={formValues.OI_Eje}
+                  autoComplete="off"
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="+1.00"
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label
+                  for={TEXT_FORM.OI_DISTANCIA.ATTR}
+                  className="text-[#1FBBC2]"
+                >
+                  {TEXT_FORM.OI_DISTANCIA.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.OI_DISTANCIA.ATTR}
+                  onChange={handleChangeForm}
+                  autoComplete="off"
+                  value={formValues.OI_Distancia}
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="+1.00"
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label
+                  for={TEXT_FORM.OI_ADICION.ATTR}
+                  className="text-[#1FBBC2]"
+                >
+                  {TEXT_FORM.OI_ADICION.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.OI_ADICION.ATTR}
+                  onChange={handleChangeForm}
+                  value={formValues.OI_Adicion}
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="+1.00"
+                  autoComplete="off"
+                />
+              </div>
             </div>
           </div>
         )}
         {step === FORM_STEP.STEP_2 && (
-          <div class="grid gap-4 gap-y-2 text-sm md:grid-cols-4 animate-fade">
-            <div className="flex items-center justify-center col-span-4 gap-3 mb-5">
-              <IconEye className="w-10 h-auto" fill="#1FBBC2" />
-              <strong className="text-2xl text-black uppercase">
-                Izquierdo
-              </strong>
-            </div>
+          <div className="w-full animate-fade">
+            <div class="grid gap-4 gap-y-2 text-sm md:grid-cols-6">
+              <div className="flex items-center col-span-6 gap-4 mb-2">
+                <div className="w-full my-1 border-b border-dashed border-[#EDEDED]"></div>
+                <span className="flex-shrink-0 text-sm uppercase text-neutral-400">
+                  Ojo Derecho
+                </span>
+                <div className="w-full my-1 border-b border-dashed border-[#EDEDED]"></div>
+              </div>
+              <div class="md:col-span-2">
+                <label
+                  for={TEXT_FORM.OD_ESFERA.ATTR}
+                  className="text-[#1FBBC2]"
+                >
+                  {TEXT_FORM.OD_ESFERA.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.OD_ESFERA.ATTR}
+                  onChange={handleChangeForm}
+                  value={formValues.OD_Esfera}
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="+1.00"
+                  autoComplete="off"
+                />
+              </div>
 
-            <div class="md:col-span-2">
-              <label for={TEXT_FORM.OI_ESFERA.ATTR} className="text-[#1FBBC2]">
-                {TEXT_FORM.OI_ESFERA.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.OI_ESFERA.ATTR}
-                value={formValues.OI_Esfera}
-                onChange={handleChangeForm}
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="+1.00"
-                autoComplete="off"
-              />
-            </div>
+              <div class="md:col-span-2">
+                <label
+                  for={TEXT_FORM.OD_CILINDRO.ATTR}
+                  className="text-[#1FBBC2]"
+                >
+                  {TEXT_FORM.OD_CILINDRO.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.OD_CILINDRO.ATTR}
+                  onChange={handleChangeForm}
+                  autoComplete="off"
+                  value={formValues.OD_Cilindro}
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="+1.00"
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label for={TEXT_FORM.OD_EJE.ATTR} className="text-[#1FBBC2]">
+                  {TEXT_FORM.OD_EJE.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.OD_EJE.ATTR}
+                  onChange={handleChangeForm}
+                  value={formValues.OD_Eje}
+                  autoComplete="off"
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="+1.00"
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label
+                  for={TEXT_FORM.OD_DISTANCIA.ATTR}
+                  className="text-[#1FBBC2]"
+                >
+                  {TEXT_FORM.OD_DISTANCIA.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.OD_DISTANCIA.ATTR}
+                  onChange={handleChangeForm}
+                  autoComplete="off"
+                  value={formValues.OD_Distancia}
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="+1.00"
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label
+                  for={TEXT_FORM.OD_ADICION.ATTR}
+                  className="text-[#1FBBC2]"
+                >
+                  {TEXT_FORM.OD_ADICION.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.OD_ADICION.ATTR}
+                  onChange={handleChangeForm}
+                  autoComplete="off"
+                  value={formValues.OD_Adicion}
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="+1.00"
+                />
+              </div>
 
-            <div class="md:col-span-2">
-              <label
-                for={TEXT_FORM.OI_CILINDRO.ATTR}
-                className="text-[#1FBBC2]"
-              >
-                {TEXT_FORM.OI_CILINDRO.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.OI_CILINDRO.ATTR}
-                onChange={handleChangeForm}
-                autoComplete="off"
-                value={formValues.OI_Cilindro}
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="+1.00"
-              />
-            </div>
-            <div class="md:col-span-2">
-              <label for={TEXT_FORM.OI_EJE.ATTR} className="text-[#1FBBC2]">
-                {TEXT_FORM.OI_EJE.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.OI_EJE.ATTR}
-                onChange={handleChangeForm}
-                value={formValues.OI_Eje}
-                autoComplete="off"
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="+1.00"
-              />
-            </div>
-            <div class="md:col-span-2">
-              <label
-                for={TEXT_FORM.OI_DISTANCIA.ATTR}
-                className="text-[#1FBBC2]"
-              >
-                {TEXT_FORM.OI_DISTANCIA.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.OI_DISTANCIA.ATTR}
-                onChange={handleChangeForm}
-                autoComplete="off"
-                value={formValues.OI_Distancia}
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="+1.00"
-              />
-            </div>
-            <div class="md:col-span-2">
-              <label for={TEXT_FORM.OI_ADICION.ATTR} className="text-[#1FBBC2]">
-                {TEXT_FORM.OI_ADICION.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.OI_ADICION.ATTR}
-                onChange={handleChangeForm}
-                value={formValues.OI_Adicion}
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="+1.00"
-                autoComplete="off"
-              />
-            </div>
-          </div>
-        )}
-        {step === FORM_STEP.STEP_3 && (
-          <div class="grid gap-4 gap-y-2 text-sm md:grid-cols-4 animate-fade">
-            <div className="flex items-center justify-center col-span-4 gap-3 mb-5">
-              <IconEye className="w-10 h-auto" fill="#1FBBC2" />
-              <strong className="text-2xl text-black uppercase">Derecho</strong>
-            </div>
-            <div class="md:col-span-2">
-              <label for={TEXT_FORM.OD_ESFERA.ATTR} className="text-[#1FBBC2]">
-                {TEXT_FORM.OD_ESFERA.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.OD_ESFERA.ATTR}
-                onChange={handleChangeForm}
-                value={formValues.OD_Esfera}
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="+1.00"
-                autoComplete="off"
-              />
-            </div>
+              <div class="md:col-span-2">
+                <label for={TEXT_FORM.DNP.ATTR} className="text-[#1FBBC2]">
+                  {TEXT_FORM.DNP.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.DNP.ATTR}
+                  onChange={handleChangeForm}
+                  value={formValues.DNP}
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="+1.00"
+                  autoComplete="off"
+                />
+              </div>
 
-            <div class="md:col-span-2">
-              <label
-                for={TEXT_FORM.OD_CILINDRO.ATTR}
-                className="text-[#1FBBC2]"
-              >
-                {TEXT_FORM.OD_CILINDRO.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.OD_CILINDRO.ATTR}
-                onChange={handleChangeForm}
-                autoComplete="off"
-                value={formValues.OD_Cilindro}
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="+1.00"
-              />
-            </div>
-            <div class="md:col-span-2">
-              <label for={TEXT_FORM.OD_EJE.ATTR} className="text-[#1FBBC2]">
-                {TEXT_FORM.OD_EJE.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.OD_EJE.ATTR}
-                onChange={handleChangeForm}
-                value={formValues.OD_Eje}
-                autoComplete="off"
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="+1.00"
-              />
-            </div>
-            <div class="md:col-span-2">
-              <label
-                for={TEXT_FORM.OD_DISTANCIA.ATTR}
-                className="text-[#1FBBC2]"
-              >
-                {TEXT_FORM.OD_DISTANCIA.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.OD_DISTANCIA.ATTR}
-                onChange={handleChangeForm}
-                autoComplete="off"
-                value={formValues.OD_Distancia}
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="+1.00"
-              />
-            </div>
-            <div class="md:col-span-2">
-              <label for={TEXT_FORM.OD_ADICION.ATTR} className="text-[#1FBBC2]">
-                {TEXT_FORM.OD_ADICION.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.OD_ADICION.ATTR}
-                onChange={handleChangeForm}
-                autoComplete="off"
-                value={formValues.OD_Adicion}
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="+1.00"
-              />
-            </div>
-          </div>
-        )}
-        {step === FORM_STEP.STEP_4 && (
-          <div class="grid gap-4 gap-y-2 text-sm md:grid-cols-4 animate-fade">
-            <div class="md:col-span-2">
-              <label for={TEXT_FORM.DNP.ATTR} className="text-[#1FBBC2]">
-                {TEXT_FORM.DNP.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.DNP.ATTR}
-                onChange={handleChangeForm}
-                value={formValues.DNP}
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="+1.00"
-                autoComplete="off"
-              />
-            </div>
+              <div class="md:col-span-2">
+                <label for={TEXT_FORM.ALTURA.ATTR} className="text-[#1FBBC2]">
+                  {TEXT_FORM.ALTURA.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.ALTURA.ATTR}
+                  onChange={handleChangeForm}
+                  autoComplete="off"
+                  value={formValues.Altura}
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="+1.00"
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label for={TEXT_FORM.DP.ATTR} className="text-[#1FBBC2]">
+                  {TEXT_FORM.DP.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.DP.ATTR}
+                  value={formValues.DP}
+                  onChange={handleChangeForm}
+                  autoComplete="off"
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="+1.00"
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label for={TEXT_FORM.TM.ATTR} className="text-[#1FBBC2]">
+                  {TEXT_FORM.TM.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.TM.ATTR}
+                  onChange={handleChangeForm}
+                  autoComplete="off"
+                  value={formValues.Tm}
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="+1.00"
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label for={TEXT_FORM.PT.ATTR} className="text-[#1FBBC2]">
+                  {TEXT_FORM.PT.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.PT.ATTR}
+                  onChange={handleChangeForm}
+                  autoComplete="off"
+                  value={formValues.Pt}
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="+1.00"
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label
+                  for={TEXT_FORM.CRISTALES.ATTR}
+                  className="text-[#1FBBC2]"
+                >
+                  {TEXT_FORM.CRISTALES.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.CRISTALES.ATTR}
+                  onChange={handleChangeForm}
+                  value={formValues.Cristales}
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="Bifocales"
+                  autoComplete="off"
+                />
+              </div>
 
-            <div class="md:col-span-2">
-              <label for={TEXT_FORM.ALTURA.ATTR} className="text-[#1FBBC2]">
-                {TEXT_FORM.ALTURA.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.ALTURA.ATTR}
-                onChange={handleChangeForm}
-                autoComplete="off"
-                value={formValues.Altura}
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="+1.00"
-              />
-            </div>
-            <div class="md:col-span-2">
-              <label for={TEXT_FORM.DP.ATTR} className="text-[#1FBBC2]">
-                {TEXT_FORM.DP.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.DP.ATTR}
-                value={formValues.DP}
-                onChange={handleChangeForm}
-                autoComplete="off"
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="+1.00"
-              />
-            </div>
-            <div class="md:col-span-2">
-              <label for={TEXT_FORM.TM.ATTR} className="text-[#1FBBC2]">
-                {TEXT_FORM.TM.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.TM.ATTR}
-                onChange={handleChangeForm}
-                autoComplete="off"
-                value={formValues.Tm}
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="+1.00"
-              />
-            </div>
-            <div class="md:col-span-2">
-              <label for={TEXT_FORM.PT.ATTR} className="text-[#1FBBC2]">
-                {TEXT_FORM.PT.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.PT.ATTR}
-                onChange={handleChangeForm}
-                autoComplete="off"
-                value={formValues.Pt}
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="+1.00"
-              />
-            </div>
-          </div>
-        )}
-        {step === FORM_STEP.STEP_5 && (
-          <div class="grid gap-4 gap-y-2 text-sm md:grid-cols-4 animate-fade">
-            <div class="md:col-span-2">
-              <label for={TEXT_FORM.CRISTALES.ATTR} className="text-[#1FBBC2]">
-                {TEXT_FORM.CRISTALES.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.CRISTALES.ATTR}
-                onChange={handleChangeForm}
-                value={formValues.Cristales}
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="Bifocales"
-                autoComplete="off"
-              />
-            </div>
-
-            <div class="md:col-span-2">
-              <label for={TEXT_FORM.MONTURA.ATTR} className="text-[#1FBBC2]">
-                {TEXT_FORM.MONTURA.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.MONTURA.ATTR}
-                onChange={handleChangeForm}
-                autoComplete="off"
-                value={formValues.Montura}
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="00"
-              />
-            </div>
-            <div class="md:col-span-2">
-              <label for={TEXT_FORM.COLOR.ATTR} className="text-[#1FBBC2]">
-                {TEXT_FORM.COLOR.HEAD}
-              </label>
-              <input
-                type="text"
-                name={TEXT_FORM.COLOR.ATTR}
-                onChange={handleChangeForm}
-                value={formValues.Color}
-                autoComplete="off"
-                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                placeholder="Azul"
-              />
+              <div class="md:col-span-2">
+                <label for={TEXT_FORM.MONTURA.ATTR} className="text-[#1FBBC2]">
+                  {TEXT_FORM.MONTURA.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.MONTURA.ATTR}
+                  onChange={handleChangeForm}
+                  autoComplete="off"
+                  value={formValues.Montura}
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="00"
+                />
+              </div>
+              <div class="md:col-span-2">
+                <label for={TEXT_FORM.COLOR.ATTR} className="text-[#1FBBC2]">
+                  {TEXT_FORM.COLOR.HEAD}
+                </label>
+                <input
+                  type="text"
+                  name={TEXT_FORM.COLOR.ATTR}
+                  onChange={handleChangeForm}
+                  value={formValues.Color}
+                  autoComplete="off"
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  placeholder="Azul"
+                />
+              </div>
             </div>
           </div>
         )}
@@ -442,26 +472,15 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
             <div className="flex gap-1">
               <strong>{step}</strong>
               <span>de</span>
-              <strong>{FORM_STEP.STEP_5}</strong>
+              <strong>{FORM_STEP.STEP_2}</strong>
             </div>
-            {(step === FORM_STEP.STEP_2 ||
-              step === FORM_STEP.STEP_3 ||
-              step === FORM_STEP.STEP_4 ||
-              step === FORM_STEP.STEP_5) && (
+            {step === FORM_STEP.STEP_2 && (
               <div>
                 <button
                   className="flex items-center rounded-full p-2 transition ease-out duration-150 bg-[#1FBBC2] hover:bg-[#1fafc2]"
                   onClick={() =>
                     handleChangeStep(
-                      FORM_STEP.STEP_2 === step
-                        ? FORM_STEP.STEP_1
-                        : FORM_STEP.STEP_3 === step
-                          ? FORM_STEP.STEP_2
-                          : FORM_STEP.STEP_4 === step
-                            ? FORM_STEP.STEP_3
-                            : FORM_STEP.STEP_5 === step
-                              ? FORM_STEP.STEP_4
-                              : undefined,
+                      FORM_STEP.STEP_2 === step ? FORM_STEP.STEP_1 : undefined,
                     )
                   }
                 >
@@ -469,30 +488,19 @@ export function CustomerHistoryForm({ customerId, handleCreateToggle }) {
                 </button>
               </div>
             )}
-            {(step === FORM_STEP.STEP_1 ||
-              step === FORM_STEP.STEP_2 ||
-              step === FORM_STEP.STEP_3 ||
-              step === FORM_STEP.STEP_4) && (
+            {step === FORM_STEP.STEP_1 && (
               <button
                 className="flex items-center rounded-full p-2 transition ease-out duration-150 bg-[#1FBBC2] hover:bg-[#1fafc2]"
                 onClick={() =>
                   handleChangeStep(
-                    FORM_STEP.STEP_1 === step
-                      ? FORM_STEP.STEP_2
-                      : FORM_STEP.STEP_2 === step
-                        ? FORM_STEP.STEP_3
-                        : FORM_STEP.STEP_3 === step
-                          ? FORM_STEP.STEP_4
-                          : FORM_STEP.STEP_4 === step
-                            ? FORM_STEP.STEP_5
-                            : undefined,
+                    FORM_STEP.STEP_1 === step ? FORM_STEP.STEP_2 : undefined,
                   )
                 }
               >
                 <IconArrowRight className="w-6 h-6" fill="#fff" />
               </button>
             )}
-            {step === FORM_STEP.STEP_5 && (
+            {step === FORM_STEP.STEP_2 && (
               <div>
                 <div class="flex gap-3 justify-end">
                   <button
