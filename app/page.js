@@ -6,9 +6,8 @@ import { Header, SIZE_PAGINATE } from "@/components/header"
 import { IconLoading } from "@/components/icons"
 import { SideBar } from "@/components/sidebar"
 import { useEffect, useState } from "react"
-import { Pagination } from "@/components/pagination"
 import { ZonaProvider } from "@/context/zona"
-import Head from "next/head"
+import { Pagination } from "@/utils/pagination"
 
 const paginate = (items, currentPageNumber, pageSize) => {
   const startIndex = (currentPageNumber - 1) * pageSize
@@ -20,7 +19,7 @@ export default function Home() {
   const [customer, setCustomer] = useState([])
   const [customerSearchOrg, setCustomerOrg] = useState([])
 
-  const [loading, setLoading] = useState(false)
+  const [isloading, setIsLoading] = useState(false)
   const [indexCustomer, setIndexCustomer] = useState(0)
   const [pageSize, setPageSize] = useState(SIZE_PAGINATE[0])
 
@@ -29,7 +28,7 @@ export default function Home() {
       const data = await getHistory()
       setCustomer(data)
       setCustomerOrg(data)
-      setLoading(true)
+      setIsLoading(true)
     }
     fetchData()
   }, [])
@@ -69,14 +68,6 @@ export default function Home() {
 
   return (
     <div className="flex">
-      <Head>
-        <title>Optiluz, C.A.</title>
-        <meta
-          name="description"
-          content="Sistema de historias medicas Optiluz, C.A."
-        />
-      </Head>
-
       <ZonaProvider>
         <SideBar />
         <div className="flex flex-col w-full">
@@ -85,11 +76,11 @@ export default function Home() {
             searchCustomer={searchCustomer}
           />
           <main className="z-20 flex">
-            {loading ? (
+            {isloading ? (
               <>
                 <div className="lg:w-[68%] w-full flex flex-col gap-5 -mt-9 mb-14 animate-fade animate-duration-300">
                   {paginatedCustomer.map((item, index) => (
-                    <CardPreview
+                    <CustomerCardPreview
                       InfoChange={handleInfoChange}
                       customer={item}
                       id={index}
@@ -99,14 +90,18 @@ export default function Home() {
                   <div className="mx-auto my-3">
                     <Pagination
                       items={customer.length} // 100
-                      currentPage={currentPage} // 1
+                      currentPage={currentPageNumber} // 1
                       pageSize={pageSize} // 10
                       onPageChange={onPageChange}
                     />
                   </div>
                 </div>
                 <div className="w-[32%] hidden lg:block -mt-40">
-                  <CardInfo customer={customer[indexCustomer]} />
+                  <CustomerCardInfo
+                    customer={
+                      customer[selectedCustomer === -1 ? 0 : selectedCustomer]
+                    }
+                  />
                 </div>
               </>
             ) : (

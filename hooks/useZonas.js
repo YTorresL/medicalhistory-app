@@ -1,5 +1,5 @@
+import { getZonas } from "@/components/getdata/get-info"
 import { useEffect, useState } from "react"
-import { getZonas } from "@/components/info/get-info"
 
 export default function useZona() {
   const [Loader, setLoader] = useState(false)

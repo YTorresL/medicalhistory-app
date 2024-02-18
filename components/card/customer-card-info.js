@@ -2,8 +2,6 @@
 import { IconMathPlus } from "../icons"
 import { useState, useContext } from "react"
 import { useOpen } from "@/hooks/useOpen"
-import { CreateInfo } from "../info/create-info"
-import { CustomerHistoryForm } from "../client-form/customer-history-form"
 import { ZonaContext } from "@/context/zona"
 import {
   Page,
@@ -14,8 +12,10 @@ import {
   Image,
   PDFDownloadLink,
 } from "@react-pdf/renderer"
+import { FormHandler } from "../popup/form-handler"
+import { CustomerHistoryForm } from "../forms/customer-history-form"
 
-export function CardInfo({ customer }) {
+export function CustomerCardInfo({ customer }) {
   const { getZona } = useContext(ZonaContext)
   const [isCreateOpen] = useState(false) // Estado para controlar la apertura/cierre del mostrar un numero limitado de items
 

@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react"
 import { getZona } from "../getdata/get-info"
 import { DataValidation } from "../popup/data-validation"
-import { customerSubmissionForm } from "../submission/customer-submission-form"
 import { useOpen } from "@/hooks/useOpen"
+import { customerSubmissionForm } from "../submission/customer-submission-form"
 
 const TEXT_FORM = {
   NOMBRE: { HEAD: "Nombre completo", ATTR: "Nombre" },
