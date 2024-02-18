@@ -1,5 +1,6 @@
+import fetch from "@/api/fetch"
 export async function getHistory() {
-  const res = await fetch(`https://testsh.alphasoft.com.ve/sh-oft/getCLI`)
+  const res = await fetch(`/sh-oft/getCLI`)
 
   if (!res.ok) {
     throw new Error("Something went wrong")
@@ -22,7 +23,7 @@ export async function getHistory() {
   )
 }
 export async function getZona() {
-  const res = await fetch(`https://testsh.alphasoft.com.ve/sh-oft/getZona`)
+  const res = await fetch(`/sh-oft/getZona`)
 
   if (!res.ok) {
     throw new Error("Something went wrong")
@@ -35,4 +36,14 @@ export async function getZona() {
       nombre: descrip,
     }
   })
+}
+
+export async function getZonas() {
+  const res = await fetch(`/sh-oft/getZona`)
+
+  if (!res.ok) {
+    throw new Error("Something went wrong")
+  }
+  const { data } = await res.json()
+  return data
 }
